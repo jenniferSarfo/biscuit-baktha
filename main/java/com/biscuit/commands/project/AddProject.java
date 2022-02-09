@@ -44,6 +44,9 @@ public class AddProject implements Command {
 
 		project.description = description.toString();
 
+		reader.setPrompt(ColorCodes.BLUE + "github URL of the project: " + ColorCodes.RESET);
+		project.githubURL = reader.readLine();
+
 		reader.setPrompt(prompt);
 
 		dashboard.addProject(project);
