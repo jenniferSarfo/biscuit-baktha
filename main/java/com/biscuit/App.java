@@ -4,6 +4,14 @@
 
 package com.biscuit;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 //import java.util.Calendar;
 //import java.util.GregorianCalendar;
 
@@ -11,9 +19,24 @@ import com.biscuit.models.Dashboard;
 import com.biscuit.views.DashboardView;
 
 public class App {
+	public App(){
+		JFrame frame = new JFrame();
+		JButton button = new JButton("Start the project");
+		JPanel panel = new JPanel();
+		panel.setBorder(BorderFactory.createEmptyBorder(50,50,50,50));
+		panel.setLayout(new GridLayout(0,1));
+		panel.add(button);
+		frame.add(panel, BorderLayout.CENTER);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setTitle("GUI");
+		frame.pack();
+		frame.setVisible(true);
+	}
 
 	public static void main(String[] args) {
+		new App();
 		initialize();
+		
 	}
 
 
