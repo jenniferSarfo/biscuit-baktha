@@ -1,7 +1,12 @@
 package com.biscuit.commands.userStory;
 
 import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 import com.biscuit.ColorCodes;
 import com.biscuit.commands.Command;
@@ -57,6 +62,18 @@ public class AddUserStoryToBacklog implements Command {
 
 		return false;
 	}
+
+
+	public boolean executeCSV(UserStory userStory) throws IOException {
+
+				project.backlog.addUserStory(userStory);
+				project.save();
+
+				reader.println();
+				reader.println(ColorCodes.GREEN + "User Story \"" + userStory.title + "\" has been added to the backlog!" + ColorCodes.RESET);
+
+				return false;
+			}
 
 
 	private void setPoints() throws IOException {
