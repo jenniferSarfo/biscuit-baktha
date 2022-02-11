@@ -1,14 +1,21 @@
 package com.biscuit.views;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import com.biscuit.ColorCodes;
 import com.biscuit.commands.help.BacklogHelp;
 import com.biscuit.commands.userStory.AddUserStoryToBacklog;
 import com.biscuit.commands.userStory.ListUserStories;
 import com.biscuit.factories.BacklogCompleterFactory;
 import com.biscuit.models.Backlog;
 import com.biscuit.models.UserStory;
+import com.biscuit.models.enums.BusinessValue;
+import com.biscuit.models.enums.Status;
 import com.biscuit.models.services.Finder.UserStories;
 
 import jline.console.completer.Completer;
@@ -32,11 +39,16 @@ public class BacklogView extends View {
 
 	@Override
 	boolean executeCommand(String[] words) throws IOException {
+
 		if (words.length == 1) {
 			return execute1Keyword(words);
 		} else if (words.length == 2) {
 			return execute2Keyword(words);
-		} else if (words.length == 4) {
+		}
+		else if (words.length == 3) {
+			return execute3Keyword(words);
+		}
+		else if (words.length == 4) {
 			return execute4Keyword(words);
 		}
 
@@ -85,6 +97,72 @@ public class BacklogView extends View {
 
 				UserStroryView usv = new UserStroryView(this, us);
 				usv.view();
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+
+	private boolean execute3Keyword(String[] words) throws IOException {
+		String prompt = reader.getPrompt();
+
+		if (words[0].equals("add")) {
+			if (words[1].equals("user_story") && words[2].equals("viaCSV")) {
+				String line = "";
+				String splitBy = ",";
+				try {
+					reader.setPrompt(ColorCodes.BLUE + "CSV of userstories file path " + ColorCodes.RESET);
+					String filePath = reader.readLine();
+					System.out.println(filePath);
+					BufferedReader br = new BufferedReader(new FileReader(filePath));
+
+					int count = 0;
+
+					while ((line = br.readLine()) != null)   //returns a Boolean value
+					{
+
+						String[] userStoryAttributes = line.split(splitBy);    // use comma as separator
+						if (count == 0)  // Skips header of the file
+						{
+							count = 1;
+							continue;
+						}
+						UserStory userStory = new UserStory();
+						userStory.title = userStoryAttributes[2];
+						userStory.description = userStoryAttributes[3];
+						userStory.state = Status.valueOf("OPEN");
+						String[] allowedBusinessValues = {"MUST_HAVE", "GREAT", "GOOD", "AVERAGE", "NICE_TO_HAVE"};
+						int r = (int) (Math.random() * 5);
+						userStory.businessValue = BusinessValue.valueOf(allowedBusinessValues[r]);
+						Date date1;
+						try {
+							date1 = new SimpleDateFormat("yyyy-MM-dd").parse(userStoryAttributes[22].substring(0, 10));
+						} catch (Exception e) {
+							date1 = new Date();
+						}
+
+						userStory.initiatedDate = date1;
+						userStory.plannedDate = new Date();
+
+						try {
+							Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(userStoryAttributes[36].substring(0, 10));
+							userStory.dueDate = date2;
+						} catch (Exception e) {
+							userStory.dueDate = new Date();
+						}
+
+						userStory.points = Integer.parseInt(userStoryAttributes[18]);
+						(new AddUserStoryToBacklog(reader, this.backlog.project)).executeCSV(userStory);
+					}
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+
+
+				resetCompleters();
+				reader.setPrompt(prompt);
 				return true;
 			}
 		}
