@@ -51,6 +51,8 @@ public class AddSprint implements Command {
 
 		sprint.assignedEffort = 0;
 		setVelocity();
+		setSprintPlanning();
+
 
 		reader.setPrompt(prompt);
 
@@ -240,6 +242,19 @@ public class AddSprint implements Command {
 	private void setName() throws IOException {
 		reader.setPrompt(ColorCodes.BLUE + "name: " + ColorCodes.RESET);
 		sprint.name = reader.readLine();
+	}
+
+	private void setSprintPlanning() throws IOException {
+		reader.setPrompt(ColorCodes.BLUE + "Sprint Planning Completed (true/false) " + ColorCodes.RESET);
+		String value = reader.readLine();
+
+		if (value.equalsIgnoreCase("true"))
+		{
+			sprint.isSprintPlanningCompleted = true;
+		}
+		else {
+			sprint.isSprintPlanningCompleted = false;
+		}
 	}
 
 }

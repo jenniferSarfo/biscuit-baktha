@@ -40,6 +40,7 @@ public class EditSprint implements Command {
 		setStartDate();
 		setDueDate();
 		setVelocity();
+		setSprintPlanning();
 
 		reader.setPrompt(prompt);
 
@@ -257,5 +258,14 @@ public class EditSprint implements Command {
 		reader.print("\r");
 
 		s.name = reader.readLine();
+	}
+
+	private void setSprintPlanning() throws IOException {
+		String prompt = ColorCodes.BLUE + "Sprint Planning Completed: " + ColorCodes.RESET;
+		boolean preload = s.isSprintPlanningCompleted;
+		reader.setPrompt(prompt);
+		reader.print("\r");
+		String s1 = reader.readLine();
+		s.isSprintPlanningCompleted = Boolean.parseBoolean(s1);
 	}
 }
