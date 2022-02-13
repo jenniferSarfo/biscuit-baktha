@@ -15,6 +15,7 @@ import com.biscuit.models.UserStory;
 import com.biscuit.models.enums.BusinessValue;
 import com.biscuit.models.enums.Points;
 import com.biscuit.models.enums.Status;
+import com.biscuit.models.enums.Happiness;
 
 import jline.console.ConsoleReader;
 import jline.console.completer.ArgumentCompleter;
@@ -48,6 +49,7 @@ public class AddUserStoryToBacklog implements Command {
 		userStory.state = Status.OPEN;
 		setBusinessValue();
 		setPoints();
+		setHappiness();
 		userStory.initiatedDate = new Date();
 		userStory.plannedDate = new Date(0);
 		userStory.dueDate = new Date(0);
@@ -104,6 +106,38 @@ public class AddUserStoryToBacklog implements Command {
 		}
 
 		reader.removeCompleter(pointsCompleter);
+		reader.addCompleter(oldCompleter);
+	}
+	
+	
+	private void setHappiness() throws IOException {
+		// List<String> Happiness = new ArrayList<String>();
+		String line;
+		Completer oldCompleter = (Completer) reader.getCompleters().toArray()[0];
+
+		// for (Happiness h : Happiness.values()) {
+		// Happiness.add(p.name().substring(1, p.name().length() - 2));
+		// }
+
+		Completer HappinessCompleter = new ArgumentCompleter(new StringsCompleter(Happiness.values), new NullCompleter());
+
+		reader.removeCompleter(oldCompleter);
+		reader.addCompleter(HappinessCompleter);
+
+		reader.setPrompt(ColorCodes.BLUE + "\nHappiness:\n" + ColorCodes.YELLOW + "(hit Tab to see an example)\n" + ColorCodes.RESET);
+
+		while ((line = reader.readLine()) != null) {
+			line = line.trim();
+
+			try {
+				userStory.Happiness = Integer.valueOf(line);
+				break;
+			} catch (NumberFormatException e) {
+				System.out.println(ColorCodes.RED + "invalid value: must be an integer value!" + ColorCodes.RESET);
+			}
+		}
+
+		reader.removeCompleter(HappinessCompleter);
 		reader.addCompleter(oldCompleter);
 	}
 
