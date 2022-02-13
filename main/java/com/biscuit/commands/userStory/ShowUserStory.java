@@ -26,6 +26,7 @@ public class ShowUserStory implements Command {
 		System.out.println(ColorCodes.RESET + us.description);
 		System.out.println(ColorCodes.BLUE + "state: " + ColorCodes.RESET + us.state);
 		System.out.println(ColorCodes.BLUE + "business value: " + ColorCodes.RESET + us.businessValue);
+		System.out.println(ColorCodes.BLUE + "Happiness: " + ColorCodes.RESET + us.Happiness);
 		System.out.println(ColorCodes.BLUE + "initiated date: " + ColorCodes.RESET
 				+ DateService.getDateAsString(us.initiatedDate));
 		System.out.println(

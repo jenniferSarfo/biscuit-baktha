@@ -117,11 +117,11 @@ public class ListUserStories implements Command {
 
 		at.addRule();
 		if (!this.title.isEmpty()) {
-			at.addRow(null, null, null, null, null, null, null, null, this.title).setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
+			at.addRow(null, null, null, null, null, null, null, null, null, this.title).setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
 			at.addRule();
 		}
-		at.addRow("Title", "Description", "State", "Business Value", "Initiated Date", "Planned Date", "Due Date", "Tasks #", "Points")
-				.setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
+		at.addRow("Title", "Description", "State", "Business Value", "Initiated Date", "Planned Date", "Due Date", "Tasks #", "Points","Happiness")
+				.setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c', 'c', 'c','c' });
 
 		if (userStories.size() == 0) {
 			String message;
@@ -137,13 +137,13 @@ public class ListUserStories implements Command {
 				at.addRule();
 
 				at.addRow(us.title, us.description, us.state, us.businessValue, DateService.getDateAsString(us.initiatedDate),
-						DateService.getDateAsString(us.plannedDate), DateService.getDateAsString(us.dueDate), us.tasks.size(), us.points)
-						.setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
+						DateService.getDateAsString(us.plannedDate), DateService.getDateAsString(us.dueDate), us.tasks.size(), us.points,us.Happiness)
+						.setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c', 'c', 'c','c' });
 			} // for
 		}
 
 		at.addRule();
-		at.addRow(null, null, null, null, null, null, null, null, "Total: " + userStories.size());
+		at.addRow(null, null, null, null, null, null, null, null, null, "Total: " + userStories.size());
 		at.addRule();
 
 		V2_AsciiTableRenderer rend = new V2_AsciiTableRenderer();
@@ -173,6 +173,7 @@ public class ListUserStories implements Command {
 		Comparator<UserStory> byDueDate = (us1, us2) -> us1.dueDate.compareTo(us2.dueDate);
 		Comparator<UserStory> byTasks = (us1, us2) -> Integer.compare(us1.tasks.size(), us2.tasks.size());
 		Comparator<UserStory> byPoints = (us1, us2) -> Integer.compare(us1.points, us2.points);
+		Comparator<UserStory> byHappiness = (us1, us2) -> Integer.compare(us1.Happiness, us2.Happiness);
 		Comparator<UserStory> byFiled = null;
 
 		if (sortBy.equals(UserStory.fields[0])) {
@@ -193,6 +194,9 @@ public class ListUserStories implements Command {
 			byFiled = byTasks;
 		} else if (sortBy.equals(UserStory.fields[8])) {
 			byFiled = byPoints;
+		} else if (sortBy.equals(UserStory.fields[8])) {
+			byFiled = byHappiness;
+			
 		} else {
 			return;
 		}
@@ -218,7 +222,9 @@ public class ListUserStories implements Command {
 		List<UserStory> filtered = userStories.stream()
 				.filter(us -> us.title.toLowerCase().contains(filterBy) || us.description.toLowerCase().contains(filterBy)
 						|| us.state.toString().toLowerCase().contains(filterBy) || us.businessValue.toString().toLowerCase().contains(filterBy)
-						|| String.valueOf(us.points).contains(filterBy) || DateService.getDateAsString(us.initiatedDate).toLowerCase().contains(filterBy)
+						|| String.valueOf(us.points).contains(filterBy)
+						|| String.valueOf(us.Happiness).contains(filterBy)
+						|| DateService.getDateAsString(us.initiatedDate).toLowerCase().contains(filterBy)
 						|| DateService.getDateAsString(us.plannedDate).toLowerCase().contains(filterBy)
 						|| DateService.getDateAsString(us.dueDate).toLowerCase().contains(filterBy))
 				.collect(Collectors.toList());
@@ -237,6 +243,7 @@ public class ListUserStories implements Command {
 		tableString = tableString.replaceFirst("Due Date", ColorCodes.BLUE + "Due Date" + ColorCodes.RESET);
 		tableString = tableString.replaceFirst("Tasks #", ColorCodes.BLUE + "Tasks #" + ColorCodes.RESET);
 		tableString = tableString.replaceFirst("Points", ColorCodes.BLUE + "Points" + ColorCodes.RESET);
+		tableString = tableString.replaceFirst("Happiness", ColorCodes.BLUE + "Happiness" + ColorCodes.RESET);
 		return tableString.replaceAll("MUST_HAVE", ColorCodes.YELLOW + "MUST_HAVE" + ColorCodes.RESET);
 	}
 
