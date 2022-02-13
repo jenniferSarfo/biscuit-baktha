@@ -22,6 +22,7 @@ public class Sprint {
 	public Date dueDate;
 	public int assignedEffort;
 	public int velocity;
+	public boolean isSprintPlanningCompleted;
 
 	public List<UserStory> userStories = new ArrayList<>();
 	public List<Bug> bugs;
@@ -33,8 +34,8 @@ public class Sprint {
 	public static String[] fieldsAsHeader;
 
 	static {
-		fields = new String[] { "name", "description", "state", "start_date", "due_date", "assigned_effort", "velocity" };
-		fieldsAsHeader = new String[] { "Name", "Description", "State", "Start Date", "Due Date", "Assigned Effort", "Velocity" };
+		fields = new String[] { "name", "description", "state", "start_date", "due_date", "assigned_effort", "velocity", "sprint_planning_completed" };
+		fieldsAsHeader = new String[] { "Name", "Description", "State", "Start Date", "Due Date", "Assigned Effort", "Velocity", "Sprint Planning Completed" };
 	}
 
 	public void addUserStory(UserStory userStory) {
