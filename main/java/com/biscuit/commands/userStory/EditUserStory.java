@@ -10,6 +10,7 @@ import com.biscuit.commands.Command;
 import com.biscuit.factories.DateCompleter;
 import com.biscuit.models.UserStory;
 import com.biscuit.models.enums.BusinessValue;
+import com.biscuit.models.enums.Happiness;
 import com.biscuit.models.enums.Points;
 import com.biscuit.models.enums.Status;
 import com.biscuit.models.services.DateService;
@@ -45,6 +46,7 @@ public class EditUserStory implements Command {
 		setPlannedDate();
 		setDueDate();
 		setPoints();
+		setHappiness();
 
 		reader.setPrompt(prompt);
 
@@ -301,6 +303,34 @@ public class EditUserStory implements Command {
 		reader.removeCompleter(businessValuesCompleter);
 		reader.addCompleter(oldCompleter);
 
+	}
+	private void setHappiness() throws IOException {
+
+		String prompt = ColorCodes.BLUE + "Happiness:" + ColorCodes.YELLOW + "(hit Tab to see an example) "
+				+ ColorCodes.RESET;
+		String preload = String.valueOf(userStory.Happiness);	
+		String line;
+		Completer oldCompleter = (Completer) reader.getCompleters().toArray()[0];
+		Completer HappinessCompleter = new ArgumentCompleter(new StringsCompleter(Happiness.values), new NullCompleter());
+		reader.removeCompleter(oldCompleter);
+		reader.addCompleter(HappinessCompleter);
+
+		reader.resetPromptLine(prompt, preload, 0);
+		reader.print("\r");
+
+		while ((line = reader.readLine()) != null) {
+			line = line.trim();
+
+			try {
+				userStory.Happiness = Integer.valueOf(line);
+				break;
+			} catch (NumberFormatException e) {
+				System.out.println(ColorCodes.RED + "invalid value: must be an integer value!" + ColorCodes.RESET);
+			}
+		}
+
+		reader.removeCompleter(HappinessCompleter);
+		reader.addCompleter(oldCompleter);
 	}
 
 

@@ -155,6 +155,8 @@ public class BacklogView extends View {
 
 						userStory.points = Integer.parseInt(userStoryAttributes[18]);
 						(new AddUserStoryToBacklog(reader, this.backlog.project)).executeCSV(userStory);
+						
+						
 					}
 				} catch (IOException e) {
 					System.out.println(e);

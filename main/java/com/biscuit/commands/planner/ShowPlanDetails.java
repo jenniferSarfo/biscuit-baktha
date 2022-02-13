@@ -146,8 +146,8 @@ public class ShowPlanDetails implements Command {
 				.setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
 		at.addRule();
 
-		at.addRow("Title", "Description", "State", "Business Value", "Initiated Date", "Planned Date", "Due Date", "Tasks #", "points")
-				.setAlignment(new char[] { 'c', 'c', 'l', 'l', 'c', 'c', 'c', 'c', 'c' });
+		at.addRow("Title", "Description", "State", "Business Value", "Initiated Date", "Planned Date", "Due Date", "Tasks #", "points","Happiness")
+				.setAlignment(new char[] { 'c', 'c', 'l', 'l', 'c', 'c', 'c', 'c', 'c','c' });
 		at.addRule();
 
 		if (s.userStories.size() == 0) {
@@ -162,8 +162,8 @@ public class ShowPlanDetails implements Command {
 		for (UserStory us : sortedByPlannedDate) {
 
 			at.addRow(us.title, us.description, us.state, us.businessValue, DateService.getDateAsString(us.initiatedDate),
-					DateService.getDateAsString(us.plannedDate), DateService.getDateAsString(us.dueDate), us.tasks.size(), us.points)
-					.setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
+					DateService.getDateAsString(us.plannedDate), DateService.getDateAsString(us.dueDate), us.tasks.size(), us.points,us.Happiness)
+					.setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c', 'c', 'c','c' });
 
 			at.addRule();
 		}
@@ -173,7 +173,7 @@ public class ShowPlanDetails implements Command {
 	private void addTopHeaderRow(V2_AsciiTable at) {
 		at.addRule();
 		at.addRow(null, null, null, null, null, null, null, null, "PLAN -> PROJECT: " + project.name)
-				.setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
+				.setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c','c' });
 		at.addRule();
 	}
 
@@ -181,7 +181,7 @@ public class ShowPlanDetails implements Command {
 	private String colorize(String tableString) {
 		String replace;
 		String[] fields = new String[] { "Name", "Description", "State", "Start Date", "Due Date", "Assigned Effort", "Velocity", "Title", "Business Value",
-				"Initiated Date", "Planned Date", "points", "Tasks #" };
+				"Initiated Date", "Planned Date", "points", "Tasks #", "Happiness" };
 
 		tableString = tableString.replaceFirst("PLAN -> PROJECT: " + project.name, ColorCodes.BLUE + "PLAN -> PROJECT: " + project.name + ColorCodes.RESET);
 		tableString = tableString.replaceFirst(project.name, ColorCodes.BLUE + project.name + ColorCodes.RESET);
