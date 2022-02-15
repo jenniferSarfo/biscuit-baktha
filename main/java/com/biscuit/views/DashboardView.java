@@ -46,10 +46,10 @@ public class DashboardView extends View {
 
 
 	private boolean execute3Keyword(String[] words) throws IOException {
-		if (words[0].equals("go_to")) {
+		if (words[0].equals("go_to") || words[0].equals(">")) {
 			// "project#1", "users", "contacts", "groups"
 
-			if (words[1].equals("project")) {
+			if (words[1].equals("project") || words[1].equals("p")) {
 				// check if project name
 				Project p = Projects.getProject(words[2]);
 				if (p != null) {
@@ -59,8 +59,8 @@ public class DashboardView extends View {
 				}
 				return false;
 			}
-		} else if (words[1].equals("project")) {
-			if (words[0].equals("edit")) {
+		} else if (words[1].equals("project") || words[1].equals("p")) {
+			if (words[0].equals("edit") || words[0].equals("-e")) {
 				Project p = Projects.getProject(words[2]);
 				if (p != null) {
 					(new EditProject(reader, p)).execute();
@@ -68,7 +68,7 @@ public class DashboardView extends View {
 					return true;
 				}
 				return false;
-			} else if (words[0].equals("remove")) {
+			} else if (words[0].equals("remove") || words[0].equals("-r")) {
 				Project p = Projects.getProject(words[2]);
 				if (p != null) {
 					(new RemoveProject(reader, p)).execute();
@@ -84,7 +84,7 @@ public class DashboardView extends View {
 
 
 	private boolean execute2Keyword(String[] words) throws IOException {
-		if (words[0].equals("go_to")) {
+		if (words[0].equals("go_to") || words[0].equals(">")) {
 			// "project#1", "users", "contacts", "groups"
 
 			// check if project name
@@ -96,11 +96,11 @@ public class DashboardView extends View {
 			}
 			return false;
 
-		} else if (words[0].equals("list")) {
+		} else if (words[0].equals("list") || words[0].equals("-ls")) {
 			// projects
 			// "filter", "sort"
-		} else if (words[1].equals("project")) {
-			if (words[0].equals("add")) {
+		} else if (words[1].equals("project") || words[1].equals("p")) {
+			if (words[0].equals("add") || words[0].equals("-a")) {
 				(new AddProject(reader)).execute();
 				resetCompleters();
 				return true;

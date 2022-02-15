@@ -48,7 +48,7 @@ public class UserStroryView extends View {
 
 
 	private boolean execute3Keywords(String[] words) {
-		if (words[0].equals("go_to")) {
+		if (words[0].equals("go_to") || words[0].equals(">")) {
 			if (words[1].equals("task")) {
 				if (Tasks.getAllNames(userStory).contains(words[2])) {
 					Task t = Tasks.find(userStory, words[2]);
@@ -74,7 +74,7 @@ public class UserStroryView extends View {
 				(new ChangeStatusUserStory(userStory, Status.valueOf(words[1].toUpperCase()))).execute();
 				return true;
 			}
-		} else if (words[0].equals("add")) {
+		} else if (words[0].equals("add") || words[0].equals("-a")) {
 			if (words[1].equals("task")) {
 				(new AddTaskToUserStory(reader, userStory.project, userStory)).execute();
 				resetCompleters();
@@ -88,10 +88,10 @@ public class UserStroryView extends View {
 
 
 	private boolean execute1Keyword(String[] words) throws IOException {
-		if (words[0].equals("show")) {
+		if (words[0].equals("show") || words[0].equals("-s")) {
 			(new ShowUserStory(userStory)).execute();
 			return true;
-		} else if (words[0].equals("edit")) {
+		} else if (words[0].equals("edit") || words[0].equals("-e")) {
 			(new EditUserStory(reader, userStory)).execute();
 			this.name = userStory.title;
 			updatePromptViews();
@@ -100,7 +100,7 @@ public class UserStroryView extends View {
 		} else if (words[0].equals("tasks")) {
 			(new ListTasks(userStory, "")).execute();
 			return true;
-		} else if (words[0].equals("help")) {
+		} else if (words[0].equals("help") || words[0].equals("-h")) {
 			return (new UserStoryHelp()).execute();
 		}
 

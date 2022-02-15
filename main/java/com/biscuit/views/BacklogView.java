@@ -57,8 +57,8 @@ public class BacklogView extends View {
 
 
 	private boolean execute4Keyword(String[] words) throws IOException {
-		if (words[0].equals("list")) {
-			if (words[1].equals("user_stories")) {
+		if (words[0].equals("list") || words[0].equals("-ls")) {
+			if (words[1].equals("user_stories") || words[1].equals("us") || words[1].equals("US")) {
 				if (words[2].equals("filter")) {
 					(new ListUserStories(backlog, "Backlog (User Stories)", true, words[3], false, "")).execute();
 					return true;
@@ -74,19 +74,19 @@ public class BacklogView extends View {
 
 
 	private boolean execute2Keyword(String[] words) throws IOException {
-		if (words[0].equals("add")) {
-			if (words[1].equals("user_story")) {
+		if (words[0].equals("add") || words[0].equals("-a")) {
+			if (words[1].equals("user_story") || words[1].equals("us") || words[1].equals("US")) {
 				(new AddUserStoryToBacklog(reader, this.backlog.project)).execute();
 				resetCompleters();
 
 				return true;
 			}
-		} else if (words[0].equals("list")) {
-			if (words[1].equals("user_stories")) {
+		} else if (words[0].equals("list") || words[0].equals("-ls")) {
+			if (words[1].equals("user_stories") || words[1].equals("us") || words[1].equals("US")) {
 				(new ListUserStories(backlog, "Backlog (User Stories)")).execute();
 				return true;
 			}
-		} else if (words[0].equals("go_to")) {
+		} else if (words[0].equals("go_to") || words[0].equals(">")) {
 			if (UserStories.getAllNames(backlog).contains(words[1])) {
 				UserStory us = UserStories.find(backlog, words[1]);
 				if (us == null) {
@@ -108,7 +108,7 @@ public class BacklogView extends View {
 	private boolean execute3Keyword(String[] words) throws IOException {
 		String prompt = reader.getPrompt();
 
-		if (words[0].equals("add")) {
+		if (words[0].equals("add") || words[0].equals("-a")) {
 			if (words[1].equals("user_story") && words[2].equals("viaCSV")) {
 				String line = "";
 				String splitBy = ",";
@@ -174,7 +174,7 @@ public class BacklogView extends View {
 
 
 	private boolean execute1Keyword(String[] words) throws IOException {
-		if (words[0].equals("user_stories")) {
+		if (words[0].equals("user_stories") || words[0].equals("us") || words[0].equals("US")) {
 			(new ListUserStories(backlog, "Backlog (User Stories)")).execute();
 			return true;
 		} else if (words[0].equals("help")) {
