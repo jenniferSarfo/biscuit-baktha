@@ -75,7 +75,7 @@ public class UserStroryView extends View {
 				return true;
 			}
 		} else if (words[0].equals("add") || words[0].equals("-a")) {
-			if (words[1].equals("task")) {
+			if (words[1].equals("task") || words[1].equals("t")) {
 				(new AddTaskToUserStory(reader, userStory.project, userStory)).execute();
 				resetCompleters();
 

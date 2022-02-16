@@ -113,7 +113,7 @@ public class DashboardView extends View {
 
 	private boolean execute1Keyword(String[] words) throws IOException {
 		if (words[0].equals("summary")) {
-		} else if (words[0].equals("projects")) {
+		} else if (words[0].equals("projects") || words[0].equals("p")) {
 		} else if (words[0].equals("alerts")) {
 		} else if (words[0].equals("check_alert")) {
 		} else if (words[0].equals("search")) {
