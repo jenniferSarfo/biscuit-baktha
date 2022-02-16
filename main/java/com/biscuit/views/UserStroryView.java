@@ -49,7 +49,7 @@ public class UserStroryView extends View {
 
 	private boolean execute3Keywords(String[] words) {
 		if (words[0].equals("go_to") || words[0].equals(">")) {
-			if (words[1].equals("task")) {
+			if (words[1].equals("task") || words[1].equals("t")) {
 				if (Tasks.getAllNames(userStory).contains(words[2])) {
 					Task t = Tasks.find(userStory, words[2]);
 					if (t == null) {

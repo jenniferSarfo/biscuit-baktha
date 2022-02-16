@@ -117,7 +117,7 @@ public class DashboardView extends View {
 		} else if (words[0].equals("alerts")) {
 		} else if (words[0].equals("check_alert")) {
 		} else if (words[0].equals("search")) {
-		} else if (words[0].equals("help")) {
+		} else if (words[0].equals("help") || words[0].equals("-h")) {
 			return (new DashboardHelp().execute());
 		}
 

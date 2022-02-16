@@ -254,7 +254,7 @@ public class ProjectView extends View {
 			return true;
 		} else if (words[0].equals("show")) {
 			return (new ShowProject(project).execute());
-		} else if (words[0].equals("help")) {
+		} else if (words[0].equals("help") || words[0].equals("-h")) {
 			return (new ProjectHelp().execute());
 		}
 

@@ -177,7 +177,7 @@ public class BacklogView extends View {
 		if (words[0].equals("user_stories") || words[0].equals("us") || words[0].equals("US")) {
 			(new ListUserStories(backlog, "Backlog (User Stories)")).execute();
 			return true;
-		} else if (words[0].equals("help")) {
+		} else if (words[0].equals("help") || words[0].equals("-h")) {
 			return (new BacklogHelp()).execute();
 		}
 
