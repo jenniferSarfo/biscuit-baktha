@@ -47,12 +47,12 @@ public class ReleaseView extends View {
 
 
 	private boolean execute4Keywords(String[] words) throws IOException {
-		if (words[0].equals("list")) {
+		if (words[0].equals("list") || words[0].equals("-ls")) {
 			if (words[1].equals("sprints")) {
-				if (words[2].equals("filter")) {
+				if (words[2].equals("filter") || words[2].equals("-f")) {
 					(new ListSprints(release, "Sprints", true, words[3], false, "")).execute();
 					return true;
-				} else if (words[2].equals("sort")) {
+				} else if (words[2].equals("sort") || words[2].equals("-s")) {
 					(new ListSprints(release, "Sprints", false, "", true, words[3])).execute();
 					return true;
 				}
@@ -68,12 +68,12 @@ public class ReleaseView extends View {
 				(new ChangeStatusRelease(release, Status.valueOf(words[1].toUpperCase()))).execute();
 				return true;
 			}
-		} else if (words[0].equals("list")) {
+		} else if (words[0].equals("list") || words[0].equals("-ls")) {
 			if (words[1].equals("sprints")) {
 				(new ListSprints(release, "Sprints")).execute();
 				return true;
 			}
-		} else if (words[0].equals("go_to")) {
+		} else if (words[0].equals("go_to") || words[0].equals(">")) {
 			if (Sprints.getAllNames(release).contains(words[1])) {
 				Sprint s = Sprints.find(release, words[1]);
 				if (s == null) {
@@ -91,10 +91,10 @@ public class ReleaseView extends View {
 
 
 	private boolean execute1Keyword(String[] words) throws IOException {
-		if (words[0].equals("show")) {
+		if (words[0].equals("show") || words[0].equals("-s")) {
 			(new ShowRelease(release)).execute();
 			return true;
-		} else if (words[0].equals("edit")) {
+		} else if (words[0].equals("edit") || words[0].equals("-e")) {
 			(new EditRelease(reader, release)).execute();
 			this.name = release.name;
 			updatePromptViews();
@@ -103,7 +103,7 @@ public class ReleaseView extends View {
 		} else if (words[0].equals("sprints")) {
 			(new ListSprints(release, "Sprints")).execute();
 			return true;
-		} else if (words[0].equals("help")) {
+		} else if (words[0].equals("help") || words[0].equals("-h")) {
 			return (new ReleaseHelp()).execute();
 		}
 		return false;

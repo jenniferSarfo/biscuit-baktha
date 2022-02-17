@@ -49,7 +49,7 @@ public class UserStroryView extends View {
 
 	private boolean execute3Keywords(String[] words) {
 		if (words[0].equals("go_to") || words[0].equals(">")) {
-			if (words[1].equals("task") || words[1].equals("t")) {
+			if (words[1].equals("task") || words[1].equals("tk")) {
 				if (Tasks.getAllNames(userStory).contains(words[2])) {
 					Task t = Tasks.find(userStory, words[2]);
 					if (t == null) {
@@ -75,7 +75,7 @@ public class UserStroryView extends View {
 				return true;
 			}
 		} else if (words[0].equals("add") || words[0].equals("-a")) {
-			if (words[1].equals("task") || words[1].equals("t")) {
+			if (words[1].equals("task") || words[1].equals("tk")) {
 				(new AddTaskToUserStory(reader, userStory.project, userStory)).execute();
 				resetCompleters();
 
@@ -97,7 +97,7 @@ public class UserStroryView extends View {
 			updatePromptViews();
 
 			return true;
-		} else if (words[0].equals("tasks")) {
+		} else if (words[0].equals("tasks") || words[0].equals("tk")) {
 			(new ListTasks(userStory, "")).execute();
 			return true;
 		} else if (words[0].equals("help") || words[0].equals("-h")) {

@@ -52,7 +52,7 @@ public class SprintsView extends View {
 
 			(new ListSprints(project, "Unplanned Sprints")).execute();
 			return true;
-		} else if (words[0].equals("help")) {
+		} else if (words[0].equals("help") || words[0].equals("-h")) {
 			return (new SprintsHelp()).execute();
 		}
 
@@ -61,14 +61,14 @@ public class SprintsView extends View {
 
 
 	private boolean execute2Keywords(String[] words) throws IOException {
-		if (words[0].equals("add")) {
+		if (words[0].equals("add") || words[0].equals("-a")) {
 			if (words[1].equals("sprint")) {
 				(new AddSprint(reader, project)).execute();
 				resetCompleters();
 
 				return true;
 			}
-		} else if (words[0].equals("go_to")) {
+		} else if (words[0].equals("go_to") || words[0].equals(">")) {
 			if (Sprints.getAllNames(project).contains(words[1])) {
 				Sprint s = Sprints.find(project, words[1]);
 				if (s == null) {

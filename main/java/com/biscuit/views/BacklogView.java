@@ -59,10 +59,10 @@ public class BacklogView extends View {
 	private boolean execute4Keyword(String[] words) throws IOException {
 		if (words[0].equals("list") || words[0].equals("-ls")) {
 			if (words[1].equals("user_stories") || words[1].equals("us") || words[1].equals("US")) {
-				if (words[2].equals("filter")) {
+				if (words[2].equals("filter") || words[2].equals("-f")) {
 					(new ListUserStories(backlog, "Backlog (User Stories)", true, words[3], false, "")).execute();
 					return true;
-				} else if (words[2].equals("sort")) {
+				} else if (words[2].equals("sort") || words[2].equals("-st")) {
 					(new ListUserStories(backlog, "Backlog (User Stories)", false, "", true, words[3])).execute();
 					return true;
 				}
@@ -109,7 +109,7 @@ public class BacklogView extends View {
 		String prompt = reader.getPrompt();
 
 		if (words[0].equals("add") || words[0].equals("-a")) {
-			if (words[1].equals("user_story") && words[2].equals("viaCSV")) {
+			if ((words[1].equals("user_story") || words[1].equals("us") || words[1].equals("US"))  && words[2].equals("viaCSV")) {
 				String line = "";
 				String splitBy = ",";
 				try {
