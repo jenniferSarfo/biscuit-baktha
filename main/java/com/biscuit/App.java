@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+
 //import java.util.Calendar;
 //import java.util.GregorianCalendar;
 
@@ -33,10 +34,11 @@ public class App {
 		frame.setVisible(true);
 	}
 
-	public static void main(String[] args) {
-		initialize();
-		
+	public static void main(String[] args) throws Exception {
+	initialize();
 	}
+
+
 
 
 	private static void initialize() {
