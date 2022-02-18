@@ -53,16 +53,16 @@ public class TaskView extends View {
 
 
 	private boolean execute1Keyword(String[] words) throws IOException {
-		if (words[0].equals("show")) {
+		if (words[0].equals("show") || words[0].equals("-s")) {
 			(new ShowTask(task)).execute();
 			return true;
-		} else if (words[0].equals("edit")) {
+		} else if (words[0].equals("edit") || words[0].equals("-e")) {
 			(new EditTask(reader, task)).execute();
 			this.name = task.title;
 			updatePromptViews();
 
 			return true;
-		} else if (words[0].equals("help")) {
+		} else if (words[0].equals("help") || words[0].equals("-h")) {
 			return (new TaskHelp()).execute();
 		}
 		return false;
