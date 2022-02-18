@@ -6,6 +6,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.net.*;
+import java.io.*;
+
+import java.util.*;
 
 import com.biscuit.ColorCodes;
 import com.biscuit.commands.help.BacklogHelp;
@@ -167,6 +171,59 @@ public class BacklogView extends View {
 				reader.setPrompt(prompt);
 				return true;
 			}
+
+			if (words[1].equals("user_story") && words[2].equals("viaTaigaAPI")) {
+				URL url = new URL ("https://api.taiga.io/api/v1/auth");
+				Map<String,Object> params = new LinkedHashMap<>();
+				params.put("type", "normal");
+				reader.setPrompt(ColorCodes.BLUE + "Enter taiga username" + ColorCodes.RESET);
+				String username = reader.readLine();
+				reader.setPrompt(ColorCodes.BLUE + "Enter taiga password" + ColorCodes.RESET);
+				String password = reader.readLine();
+				params.put("username", username);
+				params.put("password", password);
+
+				StringBuilder postData = new StringBuilder();
+				for (Map.Entry<String,Object> param : params.entrySet()) {
+					if (postData.length() != 0) postData.append('&');
+					postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+					postData.append('=');
+					postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+				}
+				byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+
+
+
+				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+				connection.setRequestMethod("POST");
+				connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+				connection.setDoOutput(true);
+				connection.getOutputStream().write(postDataBytes);
+
+
+				System.out.println(connection.getResponseCode());
+				try {
+
+					InputStream content = (InputStream)connection.getInputStream();
+					BufferedReader in   =
+							new BufferedReader (new InputStreamReader (content));
+					String line;
+					while ((line = in.readLine()) != null) {
+						System.out.println(line);
+					}
+
+				}
+				catch (Exception e)
+				{
+					System.out.println(e);
+				}
+
+				resetCompleters();
+				reader.setPrompt(prompt);
+				return true;
+
+			}
+
 		}
 
 		return false;
