@@ -200,8 +200,7 @@ public class BacklogView extends View {
 				connection.setDoOutput(true);
 				connection.getOutputStream().write(postDataBytes);
 
-
-				System.out.println(connection.getResponseCode());
+				String authToken="";
 				try {
 
 					InputStream content = (InputStream)connection.getInputStream();
@@ -209,7 +208,8 @@ public class BacklogView extends View {
 							new BufferedReader (new InputStreamReader (content));
 					String line;
 					while ((line = in.readLine()) != null) {
-						System.out.println(line);
+						String[] arrOfStr = line.split("auth_token");
+						authToken=arrOfStr[1].substring(4,216);
 					}
 
 				}
@@ -218,6 +218,33 @@ public class BacklogView extends View {
 					System.out.println(e);
 				}
 
+				reader.setPrompt(ColorCodes.BLUE + "Enter project slug from Taiga" + ColorCodes.RESET);
+				String taigaSlug = reader.readLine();
+
+				URL url1 = new URL ("https://api.taiga.io/api/v1/projects/by_slug?slug="+taigaSlug);
+				HttpURLConnection conn = (HttpURLConnection) url1.openConnection();
+
+				conn.setRequestMethod("GET");
+				conn.setRequestProperty("Content-Type", "application/json");
+				conn.setRequestProperty("Authorization", "Bearer " + authToken);
+
+				try {
+					InputStream content = (InputStream)conn.getInputStream();
+					BufferedReader in   =
+							new BufferedReader (new InputStreamReader (content));
+					String line;
+					while ((line = in.readLine()) != null) {
+						System.out.println(line);
+					}
+
+				}
+
+				catch (Exception e)
+				{
+					System.out.println(e);
+
+				}
+				
 				resetCompleters();
 				reader.setPrompt(prompt);
 				return true;
