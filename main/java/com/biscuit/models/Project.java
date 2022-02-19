@@ -11,7 +11,11 @@ public class Project {
 
 	public String name;
 	public String description;
+	public String numberOfTeammembers;
+	public String[] nameOfTeammembers;
 	public String githubURL;
+	
+     
 
 	public Backlog backlog = new Backlog();
 	public List<Release> releases = new ArrayList<>();

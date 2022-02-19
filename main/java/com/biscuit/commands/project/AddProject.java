@@ -1,6 +1,10 @@
 package com.biscuit.commands.project;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Scanner;
 
 import com.biscuit.ColorCodes;
 import com.biscuit.commands.Command;
@@ -43,7 +47,30 @@ public class AddProject implements Command {
 		}
 
 		project.description = description.toString();
-
+		
+		reader.println();
+	    reader.println(ColorCodes.BLUE + "Team Details:" + ColorCodes.RESET);
+	    reader.println();
+	    
+		reader.setPrompt(ColorCodes.BLUE + "No of Members in Team: " + ColorCodes.RESET);
+		project.numberOfTeammembers= reader.readLine();
+		
+	    int number;
+	    number=Integer.parseInt(project.numberOfTeammembers);
+	    reader.setPrompt(ColorCodes.BLUE + "Names of Team Members: " + ColorCodes.RESET);
+	    
+	    String str[]=new String[number];
+	    int i;
+	    for(i=0;i<str.length;i++)
+	    {
+	    	str[i]=reader.readLine();
+	    }
+	    
+	    project.nameOfTeammembers=str;    
+	    reader.println();
+	    reader.println(ColorCodes.GREEN + "Team Members has been added successfully!" + ColorCodes.RESET);
+		
+	    reader.println();
 		reader.setPrompt(ColorCodes.BLUE + "github URL of the project: " + ColorCodes.RESET);
 		project.githubURL = reader.readLine();
 
