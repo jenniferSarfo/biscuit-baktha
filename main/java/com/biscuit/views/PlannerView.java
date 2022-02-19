@@ -64,13 +64,13 @@ public class PlannerView extends View {
 		} else if (words[0].equals("backlog")) {
 			(new ListUserStories(project.backlog, "Backlog (User Stories)")).execute();
 			return true;
-		} else if (words[0].equals("user_stories")) {
+		} else if (words[0].equals("user_stories") || words[0].equals("us") || words[0].equals("US")) {
 			(new ListUserStories(UserStories.getAll(project), "All User Stories")).execute();
 			return true;
 		} else if (words[0].equals("plan")) {
 			(new ShowPlan(project)).execute();
 			return true;
-		} else if (words[0].equals("help")) {
+		} else if (words[0].equals("help") || words[0].equals("-h")) {
 			return (new PlannerHelp()).execute();
 		}
 
@@ -79,7 +79,7 @@ public class PlannerView extends View {
 
 
 	private boolean execute2Keywords(String[] words) throws IOException {
-		if (words[0].equals("show")) {
+		if (words[0].equals("show") || words[0].equals("-s")) {
 			if (words[1].equals("releases")) {
 				(new ListReleases(project, "Releases")).execute();
 				return true;
@@ -89,7 +89,7 @@ public class PlannerView extends View {
 			} else if (words[1].equals("backlog")) {
 				(new ListUserStories(project.backlog, "Backlog (User Stories)")).execute();
 				return true;
-			} else if (words[1].equals("user_stories")) {
+			} else if (words[1].equals("user_stories") || words[1].equals("us") || words[1].equals("US")) {
 				(new ListUserStories(UserStories.getAll(project), "All User Stories")).execute();
 				return true;
 			} else if (words[1].equals("plan")) {
@@ -131,7 +131,7 @@ public class PlannerView extends View {
 
 
 	private boolean execute3Keywords(String[] words) throws IOException {
-		if (words[0].equals("show")) {
+		if (words[0].equals("show") || words[0].equals("-s")) {
 			if (words[1].equals("plan")) {
 				if (words[2].equals("details")) {
 					(new ShowPlanDetails(project)).execute();
@@ -144,7 +144,7 @@ public class PlannerView extends View {
 
 
 	private boolean execute4Keywords(String[] words) throws IOException {
-		if (words[0].equals("move")) {
+		if (words[0].equals("move") || words[0].equals("-m")) {
 			if (UserStories.getAllNames(project.backlog).contains(words[1]) && Sprints.getAllNames(project).contains(words[3])) {
 				if ((new MoveUserStoryToSprint(reader, project, words[1], words[3])).execute()) {
 					resetCompleters();

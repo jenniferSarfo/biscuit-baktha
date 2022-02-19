@@ -117,7 +117,7 @@ public abstract class View {
 	private boolean checkIfUnivesalCommand(String[] words) throws IOException {
 
 		if (words.length == 1) {
-			if (words[0].equals("clear")) {
+			if (words[0].equals("clear") || words[0].equals("clr")) {
 				reader.clearScreen();
 				return true;
 			} else if (words[0].equals("exit")) {
@@ -127,12 +127,12 @@ public abstract class View {
 			} else if (words[0].equals("dashboard")) {
 				gotoDashboard();
 				return true;
-			} else if (words[0].equals("back")) {
+			} else if (words[0].equals("back") || words[0].equals("<")) {
 				this.close();
 				return true;
 			}
 		} else if (words.length == 2) {
-			if (words[0].equals("go_to") && words[1].equals("dashboard")) {
+			if ((words[0].equals("go_to") || words[0].equals(">")) && words[1].equals("dashboard")) {
 				gotoDashboard();
 				return true;
 			}

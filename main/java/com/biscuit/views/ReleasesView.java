@@ -45,7 +45,7 @@ public class ReleasesView extends View {
 		if (words[0].equals("releases")) {
 			(new ListReleases(project, "Releases")).execute();
 			return true;
-		} else if (words[0].equals("help")) {
+		} else if (words[0].equals("help") || words[0].equals("-h")) {
 			return (new ReleasesHelp()).execute();
 		}
 
@@ -54,14 +54,14 @@ public class ReleasesView extends View {
 
 
 	private boolean execute2Keywords(String[] words) throws IOException {
-		if (words[0].equals("add")) {
+		if (words[0].equals("add") || words[0].equals("-a")) {
 			if (words[1].equals("release")) {
 				(new AddRelease(reader, project)).execute();
 				resetCompleters();
 
 				return true;
 			}
-		} else if (words[0].equals("go_to")) {
+		} else if (words[0].equals("go_to") || words[0].equals(">")) {
 			if (Releases.getAllNames(project).contains(words[1])) {
 				Release r = Releases.find(project, words[1]);
 				if (r == null) {
