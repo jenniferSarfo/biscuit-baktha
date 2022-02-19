@@ -6,8 +6,19 @@ package com.biscuit;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -37,10 +48,10 @@ public class App implements ActionListener{
 		frame.setVisible(true);
 	}
 
+
 	public static void main(String[] args) {
 		GUI();
 		initialize();
-		
 	}
 
 
