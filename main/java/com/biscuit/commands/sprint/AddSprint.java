@@ -52,6 +52,7 @@ public class AddSprint implements Command {
 		sprint.assignedEffort = 0;
 		setVelocity();
 		setSprintPlanning();
+		setSprintGoalAcheived();
 
 
 		reader.setPrompt(prompt);
@@ -254,6 +255,19 @@ public class AddSprint implements Command {
 		}
 		else {
 			sprint.isSprintPlanningCompleted = false;
+		}
+	}
+
+	private void setSprintGoalAcheived() throws IOException {
+		reader.setPrompt(ColorCodes.BLUE + "Sprint Goal Achieved (true/false) : as you creating sprint for general usecase should be false" + ColorCodes.RESET);
+		String value = reader.readLine();
+
+		if (value.equalsIgnoreCase("true"))
+		{
+			sprint.isSprintGoalAchieved = true;
+		}
+		else {
+			sprint.isSprintGoalAchieved = false;
 		}
 	}
 
