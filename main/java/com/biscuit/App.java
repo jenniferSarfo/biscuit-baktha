@@ -25,25 +25,54 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 //import java.util.Calendar;
 //import java.util.GregorianCalendar;
 
 import com.biscuit.models.Dashboard;
 import com.biscuit.views.DashboardView;
+import com.biscuit.views.View;
 
 public class App implements ActionListener{
+	public static JFrame frame = new JFrame();
+	public static JFrame frame1 = new JFrame();
+	
+	public static JButton button = new JButton();
+	public static JButton button1 = new JButton();
+	public static JButton button2 = new JButton();
+	public static JButton button3 = new JButton();
+	public static JButton button4 = new JButton();
+	
+	public static JPanel panel = new JPanel();
+
+	public static JPanel panel1 = new JPanel();
+	public static JLabel lab = new JLabel();
+	public static JLabel label = new JLabel();
+	public static JLabel label1 = new JLabel();
+	public static JLabel label2 = new JLabel();
+	public static JLabel label3 = new JLabel();
+	
 	public static void GUI(){
-		JFrame frame = new JFrame();
-		JButton button = new JButton("Dashboard");
-		button.addActionListener(new App());
-		JPanel panel = new JPanel();
+		//button.setText("Dashboard");
+		lab.setText("Dashboard");
+		button1.setText("Add Project");
+		button2.setText("View Projects");
+		button1.addActionListener(new App());
+		//button2.addActionListener(new App());
 		panel.setBorder(BorderFactory.createEmptyBorder(50,100,50,100));
 		panel.setLayout(new GridLayout(0,1));
-		panel.add(button);
+		//panel.add(button);
+		panel.setName("Dashboard");
+		/*String title = "Dashboard";
+		Border border = BorderFactory.createTitledBorder(title);
+		panel.setBorder(border);*/
+		panel.add(lab);
+		panel.add(button1);
+		panel.add(button2);
 		frame.add(panel, BorderLayout.CENTER);
 		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("GUI");
+		frame.setTitle("Dashboard");
 		frame.pack();
 		frame.setVisible(true);
 	}
@@ -77,20 +106,37 @@ public class App implements ActionListener{
 		//System.out.println("Button Clicked");
 		
 		//success.setText("Button clicked");
-		JFrame frame = new JFrame();
-		JButton button = new JButton("View Projects");
-		JPanel panel = new JPanel();
-		panel.setBorder(BorderFactory.createEmptyBorder(50,100,50,100));
-		panel.setLayout(new GridLayout(0,1));
-		panel.add(button);
-		frame.add(panel, BorderLayout.CENTER);
+		/*button1.setText("Add Project");
+		button2.setText("View Projects");
+		panel1.setBorder(BorderFactory.createEmptyBorder(50,100,50,100));
+		panel1.setLayout(new GridLayout(0,1));
+		panel1.add(button1);
+		panel1.add(button2);
+		frame1.add(panel1, BorderLayout.CENTER);
 		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("GUI->Dashboard");
-		frame.pack();
-		frame.setVisible(true);
-		/*JLabel success = new JLabel("");
-		success.setBounds(10,110,300,25);
-		panel.add(success);*/
+		frame1.setTitle("GUI->Dashboard");
+		frame1.pack();
+		//button1.addActionListener(new View());*/
+		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		label3.setText("Enter the following details");
+		label.setText("Name:");
+		label1.setText("Descrption:");
+		label2.setText("Number of team members:");
+		panel1.setBorder(BorderFactory.createEmptyBorder(50,100,50,100));
+		panel1.setLayout(new GridLayout(0,1));
+		panel1.add(label3);
+		panel1.add(label);
+		panel1.add(label1);
+		panel1.add(label2);
+		//panel1.add(button3);
+		//panel1.add(button4);
+		frame1.add(panel1, BorderLayout.CENTER);
+		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame1.setTitle("GUI->Dashboard");
+		frame1.pack();
+		frame1.setVisible(true);
+		
+		
 		
 		
 	}
