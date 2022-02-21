@@ -42,6 +42,7 @@ public class EditSprint implements Command {
 		setVelocity();
 		setSprintPlanning();
 		setSprintGoalAcheived();
+		setSprintReviewUpdate();
 
 
 		reader.setPrompt(prompt);
@@ -278,5 +279,23 @@ public class EditSprint implements Command {
 		reader.print("\r");
 		String s1 = reader.readLine();
 		s.isSprintGoalAchieved = Boolean.parseBoolean(s1);
+		
+		
+		
+		
 	}
+
+
+private void setSprintReviewUpdate() throws IOException
+{
+	String prompt = ColorCodes.BLUE + "Sprint Review Completed : (true/false) " + ColorCodes.RESET;
+	reader.setPrompt(prompt);
+	reader.print("\r");
+	String s1 = reader.readLine();
+	s.isSprintReviewCompleted = Boolean.parseBoolean(s1);
+	
+	
+	
+}	
 }
+
