@@ -53,6 +53,7 @@ public class AddSprint implements Command {
 		setVelocity();
 		setSprintPlanning();
 		setSprintGoalAcheived();
+		setSprintReviewUpdate();
 
 
 		reader.setPrompt(prompt);
@@ -259,7 +260,7 @@ public class AddSprint implements Command {
 	}
 
 	private void setSprintGoalAcheived() throws IOException {
-		reader.setPrompt(ColorCodes.BLUE + "Sprint Goal Achieved (true/false) : as you creating sprint for general usecase should be false" + ColorCodes.RESET);
+		reader.setPrompt(ColorCodes.BLUE + "Sprint Goal Achieved (true/false) : as you are creating sprint for general usecase should be false" + ColorCodes.RESET);
 		String value = reader.readLine();
 
 		if (value.equalsIgnoreCase("true"))
@@ -268,6 +269,22 @@ public class AddSprint implements Command {
 		}
 		else {
 			sprint.isSprintGoalAchieved = false;
+		}
+	}
+	
+	private void setSprintReviewUpdate() throws IOException 
+	{
+		reader.setPrompt(ColorCodes.BLUE + "Sprint Review Completed (true/false) :as you are creating sprint for general usecase should be false" + ColorCodes.RESET);
+		String value = reader.readLine();
+
+		if (value.equalsIgnoreCase("true"))
+		{
+			sprint.isSprintReviewCompleted = true;
+		}
+		
+		else 
+		{
+			sprint.isSprintReviewCompleted = false;
 		}
 	}
 
