@@ -146,7 +146,7 @@ public class ShowPlanDetails implements Command {
 				.setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
 		at.addRule();
 
-		at.addRow("Title", "Description", "State", "Business Value", "Initiated Date", "Planned Date", "Due Date", "Tasks #", "points","Happiness")
+		at.addRow("Title", "Description", "State", "Business Value", "Initiated Date", "Planned Date", "Due Date", "Tasks #", "Story Points","Happiness")
 				.setAlignment(new char[] { 'c', 'c', 'l', 'l', 'c', 'c', 'c', 'c', 'c','c' });
 		at.addRule();
 
@@ -181,7 +181,7 @@ public class ShowPlanDetails implements Command {
 	private String colorize(String tableString) {
 		String replace;
 		String[] fields = new String[] { "Name", "Description", "State", "Start Date", "Due Date", "Assigned Effort", "Velocity", "Title", "Business Value",
-				"Initiated Date", "Planned Date", "points", "Tasks #", "Happiness" };
+				"Initiated Date", "Planned Date", "Story Points", "Tasks #", "Happiness" };
 
 		tableString = tableString.replaceFirst("PLAN -> PROJECT: " + project.name, ColorCodes.BLUE + "PLAN -> PROJECT: " + project.name + ColorCodes.RESET);
 		tableString = tableString.replaceFirst(project.name, ColorCodes.BLUE + project.name + ColorCodes.RESET);

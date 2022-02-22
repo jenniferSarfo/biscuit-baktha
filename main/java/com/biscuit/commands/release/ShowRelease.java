@@ -26,7 +26,7 @@ public class ShowRelease implements Command {
 		System.out.println(ColorCodes.BLUE + "state: " + ColorCodes.RESET + r.state);
 		System.out.println(
 				ColorCodes.BLUE + "Start date: " + ColorCodes.RESET + DateService.getDateAsString(r.startDate));
-		System.out.println(ColorCodes.BLUE + "due date: " + ColorCodes.RESET + DateService.getDateAsString(r.dueDate));
+		System.out.println(ColorCodes.BLUE + "Due date: " + ColorCodes.RESET + DateService.getDateAsString(r.dueDate));
 		System.out.println(ColorCodes.BLUE + "Assigned Effort: " + ColorCodes.RESET + r.assignedEffort);
 		System.out.println();
 

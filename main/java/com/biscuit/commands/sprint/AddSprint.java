@@ -247,7 +247,7 @@ public class AddSprint implements Command {
 	}
 
 	private void setSprintPlanning() throws IOException {
-		reader.setPrompt(ColorCodes.BLUE + "Sprint Planning Completed (true/false) " + ColorCodes.RESET);
+		reader.setPrompt(ColorCodes.BLUE + "Sprint planning completed (true/false) " + ColorCodes.RESET);
 		String value = reader.readLine();
 
 		if (value.equalsIgnoreCase("true"))
@@ -260,7 +260,7 @@ public class AddSprint implements Command {
 	}
 
 	private void setSprintGoalAcheived() throws IOException {
-		reader.setPrompt(ColorCodes.BLUE + "Sprint Goal Achieved (true/false) : as you are creating sprint for general usecase should be false" + ColorCodes.RESET);
+		reader.setPrompt(ColorCodes.BLUE + "Sprint goal achieved (true/false) : when creating a new sprint, enter false" + ColorCodes.RESET);
 		String value = reader.readLine();
 
 		if (value.equalsIgnoreCase("true"))
@@ -274,7 +274,7 @@ public class AddSprint implements Command {
 	
 	private void setSprintReviewUpdate() throws IOException 
 	{
-		reader.setPrompt(ColorCodes.BLUE + "Sprint Review Completed (true/false) :as you are creating sprint for general usecase should be false" + ColorCodes.RESET);
+		reader.setPrompt(ColorCodes.BLUE + "Sprint review completed (true/false) : if the sprint review is not completed, enter false" + ColorCodes.RESET);
 		String value = reader.readLine();
 
 		if (value.equalsIgnoreCase("true"))

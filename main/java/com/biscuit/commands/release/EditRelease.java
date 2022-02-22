@@ -58,7 +58,7 @@ public class EditRelease implements Command {
 		reader.addCompleter(dateCompleter);
 
 		reader.setPrompt(ColorCodes.BLUE + "\ndue date:\n" + ColorCodes.YELLOW
-				+ "(hit Tab to see examples)\n(optional: leave it blank for unchange, or unset to unset)\n"
+				+ "(hit Tab to see examples)\n(optional: leave it blank for no change, or unset to unset)\n"
 				+ ColorCodes.RESET + "current value: " + DateService.getDateAsString(r.dueDate) + "\n");
 
 		while ((line = reader.readLine()) != null) {
@@ -121,7 +121,7 @@ public class EditRelease implements Command {
 		reader.addCompleter(dateCompleter);
 
 		reader.setPrompt(ColorCodes.BLUE + "\nstartDate date:\n" + ColorCodes.YELLOW
-				+ "(hit Tab to see examples)\n(optional: leave it blank for unchange, or unset to unset)\n"
+				+ "(hit Tab to see examples)\n(optional: leave it blank for no change, or unset to unset)\n"
 				+ ColorCodes.RESET + "current value: " + DateService.getDateAsString(r.startDate) + "\n");
 
 		while ((line = reader.readLine()) != null) {
@@ -185,7 +185,7 @@ public class EditRelease implements Command {
 		state = reader.readLine().trim();
 
 		while (!Status.values.contains(state)) {
-			System.out.println(ColorCodes.RED + "invalid state, hit tab for auto-complete" + ColorCodes.RESET);
+			System.out.println(ColorCodes.RED + "invalid state. hit tab to auto-complete" + ColorCodes.RESET);
 			state = reader.readLine().trim();
 		}
 
