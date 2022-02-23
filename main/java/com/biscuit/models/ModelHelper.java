@@ -73,7 +73,7 @@ public class ModelHelper {
 			if (file.delete()) {
 				System.out.println(file.getName() + " is deleted!");
 			} else {
-				System.out.println("Delete operation is failed.");
+				System.out.println("Delete operation has failed.");
 			}
 
 		} catch (Exception e) {

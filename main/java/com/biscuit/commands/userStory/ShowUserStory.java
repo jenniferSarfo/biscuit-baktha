@@ -32,7 +32,7 @@ public class ShowUserStory implements Command {
 		System.out.println(
 				ColorCodes.BLUE + "planned date: " + ColorCodes.RESET + DateService.getDateAsString(us.plannedDate));
 		System.out.println(ColorCodes.BLUE + "due date: " + ColorCodes.RESET + DateService.getDateAsString(us.dueDate));
-		System.out.println(ColorCodes.BLUE + "points: " + ColorCodes.RESET + us.points);
+		System.out.println(ColorCodes.BLUE + "story points: " + ColorCodes.RESET + us.points);
 		System.out.println();
 		
 		return true;
