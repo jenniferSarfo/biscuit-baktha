@@ -4,6 +4,7 @@
 
 package com.biscuit.views;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -97,8 +98,26 @@ public class DashboardView extends View {
 			return false;
 
 		} else if (words[0].equals("list") || words[0].equals("-ls")) {
-			// projects
-			// "filter", "sort"
+			if(words[1].equals("projects")){
+				String userHome = System.getProperty("user.home");
+
+				File folder = new File(userHome+"/"+"biscuit");
+				File[] listOfFiles = folder.listFiles();
+
+				if (listOfFiles == null)
+					System.out.println("You don't have biscuit folder in your home directory to list projects");
+				else {
+					for (int i = 0; i < listOfFiles.length; i++) {
+						if (listOfFiles[i].isFile()) {
+							System.out.println(listOfFiles[i].getName());
+						} else if (listOfFiles[i].isDirectory()) {
+							continue;
+						}
+					}
+				}
+				resetCompleters();
+				return true;
+			}
 		} else if (words[1].equals("project") || words[1].equals("p")) {
 			if (words[0].equals("add") || words[0].equals("-a")) {
 				(new AddProject(reader)).execute();
