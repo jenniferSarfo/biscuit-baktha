@@ -56,7 +56,6 @@ public class App implements ActionListener{
 
 
 	private static void initialize() {
-
 		Dashboard.setInstance(Dashboard.load());
 
 		if (Dashboard.getInstance() == null) {
@@ -64,8 +63,6 @@ public class App implements ActionListener{
 		}
 
 		Dashboard.getInstance().save();
-
-//		test();
 
 		DashboardView dbv = new DashboardView();
 		dbv.view();
