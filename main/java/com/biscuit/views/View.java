@@ -4,9 +4,18 @@
 
 package com.biscuit.views;
 
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import com.biscuit.ColorCodes;
 import com.biscuit.factories.UniversalCompleterFactory;
@@ -15,7 +24,20 @@ import jline.console.ConsoleReader;
 import jline.console.completer.AggregateCompleter;
 import jline.console.completer.Completer;
 
-public abstract class View {
+public abstract class View implements ActionListener{
+	
+	public static JFrame frame = new JFrame();
+    public static JPanel panel = new JPanel();
+    public static JPanel panel1 = new JPanel();
+    private static boolean flag = true;
+
+    JButton go_to = new JButton("go_to Dashboard");
+    JButton clear = new JButton("clear");
+    JButton back1 = new JButton("back");
+    JButton exit = new JButton("exit");
+    JButton back = new JButton("add project");
+    JButton go_to_pjct = new JButton("go_to project");
+    JButton help = new JButton("help");
 
 	static ConsoleReader reader;
 	static List<String> promptViews;
@@ -43,6 +65,30 @@ public abstract class View {
 	public View(View previousView, String name) {
 		this.previousView = previousView;
 		this.name = name;
+		if (flag) {
+            //console.setBackground(Color.LIGHT_GRAY);
+            panel.add(go_to);
+            panel.add(back);
+            panel.add(clear);
+            panel.add(back1);
+            panel.add(exit);
+            panel.add(go_to_pjct);
+            panel.add(help);
+            go_to.addActionListener(this);
+            back.addActionListener(this);
+            clear.addActionListener(this);
+            back1.addActionListener(this);
+            exit.addActionListener(this);
+            go_to_pjct.addActionListener(this);
+            help.addActionListener(this);
+            frame.setLayout(new GridLayout(0, 1));
+            //frame.setBounds(0, 0, 0, 0);
+            frame.add(panel);
+            frame.add(panel1);
+            frame.pack();
+            frame.setVisible(true);
+            flag = false;
+        }
 	}
 
 	public void view() {
@@ -57,7 +103,7 @@ public abstract class View {
 
 		addCompleters();
 
-		read();
+		//read();
 	}
 
 	protected void clearCompleters() {
@@ -88,26 +134,20 @@ public abstract class View {
 		addCompleters();
 	}
 
-	private void read() {
+	private void read(String line) {
+		line = line.trim();
+        String words[] = line.split("\\s+");
+        for (String iterator : words)
+            panel1.removeAll();
+        frame.repaint();
+        frame.setVisible(true);
 		try {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				line = line.trim();
-
-				if (line.isEmpty()) {
-					continue;
-				}
-
-				String words[] = line.split("\\s+");
+			
 
 				if (checkIfUnivesalCommand(words)) {
-					continue;
+					executeCommand(words);
 				}
-
-				if (!executeCommand(words)) {
-					System.out.println("invalid command!");
-				}
-			}
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -117,22 +157,28 @@ public abstract class View {
 	private boolean checkIfUnivesalCommand(String[] words) throws IOException {
 
 		if (words.length == 1) {
-			if (words[0].equals("clear") || words[0].equals("clr")) {
-				reader.clearScreen();
-				return true;
+			if (words[0].equals("clear")) {
+				panel1.add(new JLabel("Command selected: clear"));
+				frame.repaint();
+				frame.pack();
+				frame.setVisible(true);
+                return true;
 			} else if (words[0].equals("exit")) {
-				System.out.println(ColorCodes.BLUE + "See ya!\n" + ColorCodes.RESET);
-				reader.shutdown();
-				System.exit(0);
-			} else if (words[0].equals("dashboard")) {
-				gotoDashboard();
-				return true;
-			} else if (words[0].equals("back") || words[0].equals("<")) {
-				this.close();
-				return true;
+				panel1.add(new JLabel("Command selected: exit"));
+				frame.repaint();
+				frame.pack();
+				frame.setVisible(true);
+                System.exit(0);
+			} else if (words[0].equals("back")) {
+				panel1.add(new JLabel("Command selected: back..Going to previous view"));
+				frame.repaint();
+				frame.pack();
+				frame.setVisible(true);
+                this.close();
+                return true;
 			}
 		} else if (words.length == 2) {
-			if ((words[0].equals("go_to") || words[0].equals(">")) && words[1].equals("dashboard")) {
+			if ((words[0].equals("go_to")) && words[1].equals("dashboard")) {
 				gotoDashboard();
 				return true;
 			}
@@ -143,7 +189,14 @@ public abstract class View {
 
 	private void gotoDashboard() throws IOException {
 		if (this.name.equals("Dashboard")) {
-			reader.println("you are in the dashboard already!");
+			panel1.add(new JLabel("Selected"));
+            JLabel label = new JLabel("DashBoard");
+            panel1.add(label);
+            panel1.repaint();
+            panel1.setVisible(true);
+            frame.pack();
+            frame.repaint();
+            frame.setVisible(true);
 		} else {
 			promptViews.remove(name);
 			View v = this.previousView;
@@ -189,5 +242,11 @@ public abstract class View {
 			previousView.view();
 		}
 	}
+	
+	  public void actionPerformed(ActionEvent e) {
+	        System.out.println(e.getActionCommand() + "is pressed");
+	        if (e.getSource().getClass().toString().equals("class javax.swing.JButton"))
+	            read(e.getActionCommand());
+	    }
 
 }

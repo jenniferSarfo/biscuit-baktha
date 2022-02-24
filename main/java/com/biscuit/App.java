@@ -32,25 +32,25 @@ import javax.swing.JPanel;
 import com.biscuit.models.Dashboard;
 import com.biscuit.views.DashboardView;
 
-public class App implements ActionListener{
-	public static void GUI(){
-		JFrame frame = new JFrame();
-		JButton button = new JButton("Dashboard");
-		button.addActionListener(new App());
-		JPanel panel = new JPanel();
-		panel.setBorder(BorderFactory.createEmptyBorder(50,100,50,100));
-		panel.setLayout(new GridLayout(0,1));
-		panel.add(button);
-		frame.add(panel, BorderLayout.CENTER);
-		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("GUI");
-		frame.pack();
-		frame.setVisible(true);
-	}
+public class App{
+//	public static void GUI(){
+//		JFrame frame = new JFrame();
+//		JButton button = new JButton("Dashboard");
+//		button.addActionListener(new App());
+//		JPanel panel = new JPanel();
+//		panel.setBorder(BorderFactory.createEmptyBorder(50,100,50,100));
+//		panel.setLayout(new GridLayout(0,1));
+//		panel.add(button);
+//		frame.add(panel, BorderLayout.CENTER);
+//		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.setTitle("GUI");
+//		frame.pack();
+//		frame.setVisible(true);
+//	}
 
 
 	public static void main(String[] args) {
-		GUI();
+		//GUI();
 		initialize();
 	}
 
@@ -69,28 +69,28 @@ public class App implements ActionListener{
 
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		//System.out.println("Button Clicked");
-		
-		//success.setText("Button clicked");
-		JFrame frame = new JFrame();
-		JButton button = new JButton("View Projects");
-		JPanel panel = new JPanel();
-		panel.setBorder(BorderFactory.createEmptyBorder(50,100,50,100));
-		panel.setLayout(new GridLayout(0,1));
-		panel.add(button);
-		frame.add(panel, BorderLayout.CENTER);
-		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("GUI->Dashboard");
-		frame.pack();
-		frame.setVisible(true);
-		/*JLabel success = new JLabel("");
-		success.setBounds(10,110,300,25);
-		panel.add(success);*/
-		
-		
-	}
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		//System.out.println("Button Clicked");
+//		
+//		//success.setText("Button clicked");
+//		JFrame frame = new JFrame();
+//		JButton button = new JButton("View Projects");
+//		JPanel panel = new JPanel();
+//		panel.setBorder(BorderFactory.createEmptyBorder(50,100,50,100));
+//		panel.setLayout(new GridLayout(0,1));
+//		panel.add(button);
+//		frame.add(panel, BorderLayout.CENTER);
+//		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.setTitle("GUI->Dashboard");
+//		frame.pack();
+//		frame.setVisible(true);
+//		/*JLabel success = new JLabel("");
+//		success.setBounds(10,110,300,25);
+//		panel.add(success);*/
+//		
+//		
+//	}
 
 
 //	private static void test() {
