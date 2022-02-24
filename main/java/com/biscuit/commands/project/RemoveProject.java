@@ -32,7 +32,7 @@ public class RemoveProject implements Command {
 		line = reader.readLine();
 
 		if (!isValid_YN(line)) {
-			System.out.println("Removing is cancelled!");
+			System.out.println("Removing project is cancelled!");
 			reader.setPrompt(prompt);
 			return true;
 		}
@@ -40,7 +40,7 @@ public class RemoveProject implements Command {
 		yes = (line.toLowerCase().equals("y"));
 
 		if (!yes) {
-			System.out.println("Removing is cancelled!");
+			System.out.println("Removing project is cancelled!");
 			reader.setPrompt(prompt);
 			return true;
 		}
@@ -56,7 +56,7 @@ public class RemoveProject implements Command {
 		line = reader.readLine();
 
 		if (!isValid_YN(line)) {
-			System.out.println("deleting is cancelled!");
+			System.out.println("Deleting files is cancelled!");
 			reader.setPrompt(prompt);
 			return true;
 		}

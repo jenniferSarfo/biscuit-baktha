@@ -35,7 +35,7 @@ public class EditProject implements Command {
 			Dashboard.getInstance().renameProject(oldName, p.name);
 			Dashboard.getInstance().save();
 		} catch (IOException e) {
-			System.out.println("project with name \"" + p.name + "\" is already existed!");
+			System.out.println("Project with name \"" + p.name + "\" already exists!");
 			p.name = oldName;
 		}
 

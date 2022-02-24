@@ -78,7 +78,7 @@ public class ListReleases implements Command {
 			if (!isFilter) {
 				message = "There are no releases!";
 			} else {
-				message = "No results";
+				message = "No results.";
 			}
 			at.addRule();
 			at.addRow(null, null, null, null, null, message);

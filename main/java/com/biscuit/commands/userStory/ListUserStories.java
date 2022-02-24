@@ -103,7 +103,7 @@ public class ListUserStories implements Command {
 		} else if (this.userStories != null) {
 			userStories = this.userStories;
 		} else {
-			System.err.println("error: backlog, sprint, and userStories are null");
+			System.err.println("error: backlog, sprint, and user stories are null");
 			return false;
 		}
 

@@ -172,7 +172,7 @@ public class BacklogView extends View {
 				return true;
 			}
 
-			if (words[1].equals("user_story") && words[2].equals("viaTaigaAPI")) {
+			if ((words[1].equals("user_story") || words[1].equals("us") || words[1].equals("US")) && words[2].equals("viaTaigaAPI")) {
 				URL url = new URL ("https://api.taiga.io/api/v1/auth");
 				Map<String,Object> params = new LinkedHashMap<>();
 				params.put("type", "normal");

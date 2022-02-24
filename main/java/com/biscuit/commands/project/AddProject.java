@@ -52,7 +52,7 @@ public class AddProject implements Command {
 	    reader.println(ColorCodes.BLUE + "Team Details:" + ColorCodes.RESET);
 	    reader.println();
 	    
-		reader.setPrompt(ColorCodes.BLUE + "No of Members in Team: " + ColorCodes.RESET);
+		reader.setPrompt(ColorCodes.BLUE + "No. of Members in Team: " + ColorCodes.RESET);
 		project.numberOfTeammembers= reader.readLine();
 		
 	    int number;
@@ -68,7 +68,7 @@ public class AddProject implements Command {
 	    
 	    project.nameOfTeammembers=str;    
 	    reader.println();
-	    reader.println(ColorCodes.GREEN + "Team Members has been added successfully!" + ColorCodes.RESET);
+	    reader.println(ColorCodes.GREEN + "Team members have been added successfully!" + ColorCodes.RESET);
 		
 	    reader.println();
 		reader.setPrompt(ColorCodes.BLUE + "github URL of the project: " + ColorCodes.RESET);

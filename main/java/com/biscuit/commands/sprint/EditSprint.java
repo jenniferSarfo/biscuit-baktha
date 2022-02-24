@@ -93,7 +93,7 @@ public class EditSprint implements Command {
 		reader.addCompleter(dateCompleter);
 
 		reader.setPrompt(ColorCodes.BLUE + "\ndue date:\n" + ColorCodes.YELLOW
-				+ "(hit Tab to see examples)\n(optional: leave it blank for unchange, or unset to unset)\n"
+				+ "(hit Tab to see examples)\n(optional: leave it blank for no change, or unset to unset)\n"
 				+ ColorCodes.RESET + "current value: " + DateService.getDateAsString(s.dueDate) + "\n");
 
 		while ((line = reader.readLine()) != null) {
@@ -156,7 +156,7 @@ public class EditSprint implements Command {
 		reader.addCompleter(dateCompleter);
 
 		reader.setPrompt(ColorCodes.BLUE + "\nstartDate date:\n" + ColorCodes.YELLOW
-				+ "(hit Tab to see examples)\n(optional: leave it blank for unchange, or unset to unset)\n"
+				+ "(hit Tab to see examples)\n(optional: leave it blank for no change, or unset to unset)\n"
 				+ ColorCodes.RESET + "current value: " + DateService.getDateAsString(s.startDate) + "\n");
 
 		while ((line = reader.readLine()) != null) {
@@ -220,7 +220,7 @@ public class EditSprint implements Command {
 		state = reader.readLine().trim();
 
 		while (!Status.values.contains(state)) {
-			System.out.println(ColorCodes.RED + "invalid state, hit tab for auto-complete" + ColorCodes.RESET);
+			System.out.println(ColorCodes.RED + "invalid state, hit tab to auto-complete" + ColorCodes.RESET);
 			state = reader.readLine().trim();
 		}
 
@@ -264,7 +264,7 @@ public class EditSprint implements Command {
 	}
 
 	private void setSprintPlanning() throws IOException {
-		String prompt = ColorCodes.BLUE + "Sprint Planning Completed: (true/false) " + ColorCodes.RESET;
+		String prompt = ColorCodes.BLUE + "Sprint planning completed: (true/false) " + ColorCodes.RESET;
 		boolean preload = s.isSprintPlanningCompleted;
 		reader.setPrompt(prompt);
 		reader.print("\r");
@@ -288,7 +288,7 @@ public class EditSprint implements Command {
 
 private void setSprintReviewUpdate() throws IOException
 {
-	String prompt = ColorCodes.BLUE + "Sprint Review Completed : (true/false) " + ColorCodes.RESET;
+	String prompt = ColorCodes.BLUE + "Sprint review completed : (true/false) " + ColorCodes.RESET;
 	reader.setPrompt(prompt);
 	reader.print("\r");
 	String s1 = reader.readLine();
