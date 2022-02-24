@@ -90,7 +90,8 @@ public class BacklogView extends View {
 				(new ListUserStories(backlog, "Backlog (User Stories)")).execute();
 				return true;
 			}
-		} else if (words[0].equals("go_to") || words[0].equals(">")) {
+		}
+		else if (words[0].equals("go_to") || words[0].equals(">")) {
 			if (UserStories.getAllNames(backlog).contains(words[1])) {
 				UserStory us = UserStories.find(backlog, words[1]);
 				if (us == null) {

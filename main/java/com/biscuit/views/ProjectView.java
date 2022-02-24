@@ -11,6 +11,7 @@ import com.biscuit.commands.help.ProjectHelp;
 import com.biscuit.commands.planner.ShowPlan;
 import com.biscuit.commands.planner.ShowPlanDetails;
 import com.biscuit.commands.project.ShowProject;
+import com.biscuit.commands.project.ShowTeam;
 import com.biscuit.commands.release.AddRelease;
 import com.biscuit.commands.release.ListReleases;
 import com.biscuit.commands.sprint.AddSprint;
@@ -253,8 +254,12 @@ public class ProjectView extends View {
 			}
 			return true;
 		} else if (words[0].equals("show") || words[0].equals("-s")) {
-			return (new ShowProject(project).execute());
-		} else if (words[0].equals("help") || words[0].equals("-h")) {
+			return (new ShowProject(project).execute());}
+			else if (words[0].equals("listteam") || words[0].equals("-s"))
+			{
+				return (new ShowTeam(project).execute());
+		    } 
+			else if (words[0].equals("help") || words[0].equals("-h")) {
 			return (new ProjectHelp().execute());
 		}
 

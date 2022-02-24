@@ -6,12 +6,12 @@ import com.biscuit.ColorCodes;
 import com.biscuit.commands.Command;
 import com.biscuit.models.Project;
 
-public class ShowProject implements Command {
+public class ShowTeam implements Command {
 
 	Project p = null;
 
 
-	public ShowProject(Project p) {
+	public ShowTeam(Project p) {
 		super();
 		this.p = p;
 	}
@@ -20,9 +20,14 @@ public class ShowProject implements Command {
 	@Override
 	public boolean execute() throws IOException {
 
-		System.out.println(ColorCodes.BLUE + "title: " + ColorCodes.RESET + p.name);
-		System.out.println(ColorCodes.BLUE + "description: ");
-		System.out.println(ColorCodes.RESET + p.description);
+		System.out.println(ColorCodes.BLUE + "Team Members: " + ColorCodes.RESET);
+		
+		String[] teamMembers = p.nameOfTeammembers;
+		
+		for(int i=0; i<teamMembers.length;i++)
+		{
+			System.out.println(ColorCodes.RESET + teamMembers[i]);
+		}
 		System.out.println();
 
 		return true;
