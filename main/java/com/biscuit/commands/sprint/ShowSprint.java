@@ -29,6 +29,7 @@ public class ShowSprint implements Command {
 		System.out.println(ColorCodes.BLUE + "Due date: " + ColorCodes.RESET + DateService.getDateAsString(s.dueDate));
 		System.out.println(ColorCodes.BLUE + "Assigned effort: " + ColorCodes.RESET + s.assignedEffort);
 		System.out.println(ColorCodes.BLUE + "Velocity: " + ColorCodes.RESET + s.velocity);
+		System.out.println(ColorCodes.BLUE + "Sprint Minutes: " + ColorCodes.RESET + s.retrospectiveMinutes);
 
 		System.out.println();
 
