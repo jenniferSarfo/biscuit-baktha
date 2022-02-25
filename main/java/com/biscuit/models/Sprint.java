@@ -30,7 +30,7 @@ public class Sprint {
 	public List<UserStory> userStories = new ArrayList<>();
 	public List<Bug> bugs;
 	public List<Test> tests;
-	public String retrospectiveMinutes;
+//	public String retrospectiveMinutes;
 
 	// Completed 0pt 0% ToDo 8pt
 

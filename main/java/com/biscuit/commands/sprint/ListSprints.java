@@ -97,7 +97,7 @@ public class ListSprints implements Command {
 			at.addRow(null, null, null, null, null,null, null, null, null, this.title,null).setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c','c' });
 			at.addRule();
 		}
-		at.addRow("Name", "Description", "State", "Start Date", "Due Date", "Assigned Effort", "Velocity", "Sprint Planning Completed", "Sprint Goal Achieved","Sprint Review Completed")
+		at.addRow("Name", "Description", "State", "Start Date", "Due Date", "Assigned Effort", "Velocity", "Sprint Planning Completed", "Sprint Goal Achieved","Sprint Review Completed", "Sprint Minutes")
 				.setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c', 'c', 'c','c','c' });
 
 		if (sprints.size() == 0) {
@@ -108,18 +108,18 @@ public class ListSprints implements Command {
 				message = "No results.";
 			}
 			at.addRule();
-			at.addRow(null, null, null, null, null, null, null, null,null, message,null);
+			at.addRow(null, null, null, null, null, null, null, null, null, message,null);
 		} else {
 			for (Sprint s : sprints) {
 				at.addRule();
 
 				at.addRow(s.name, s.description, s.state, DateService.getDateAsString(s.startDate), DateService.getDateAsString(s.dueDate), s.assignedEffort,
-						s.velocity, s.isSprintPlanningCompleted, s.isSprintGoalAchieved,s.isSprintReviewCompleted, s.retrospectiveMinutes).setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c', 'c', 'c','c', 'c' });
+						s.velocity, s.isSprintPlanningCompleted, s.isSprintGoalAchieved,s.isSprintReviewCompleted, s.sprintretrospectiveminutes).setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c', 'c', 'c','c', 'c' });
 			} // for
 		}
 
 		at.addRule();
-		at.addRow(null, null, null, null, null, null, null, null,null, "Total: " + sprints.size());
+		at.addRow(null, null, null, null, null, null, null, null, null, "Total: " + sprints.size(), null);
 		at.addRule();
 
 		V2_AsciiTableRenderer rend = new V2_AsciiTableRenderer();
