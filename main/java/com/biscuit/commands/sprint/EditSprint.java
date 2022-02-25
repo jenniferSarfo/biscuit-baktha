@@ -41,6 +41,7 @@ public class EditSprint implements Command {
 		setDueDate();
 		setVelocity();
 		setSprintPlanning();
+		setSprintRetrospectiveMeetingMinutes();
 		setSprintGoalAcheived();
 		setSprintReviewUpdate();
 
@@ -81,7 +82,33 @@ public class EditSprint implements Command {
 		reader.removeCompleter(pointsCompleter);
 		reader.addCompleter(oldCompleter);
 	}
+	
+	
+	private void setSprintRetrospectiveMeetingMinutes() throws IOException 
+	{
+		StringBuilder meetingmin = new StringBuilder();
+		String line;
+		String prompt = ColorCodes.BLUE + "Meeting Minutes Of Sprint Retrospective: " + ColorCodes.YELLOW + "(\\q to end writing) "
+				+ ColorCodes.RESET;
+		String preload = s.sprintretrospectiveminutes.replace("\n", "<newline>").replace("!", "<exclamation-mark>");
 
+		reader.resetPromptLine(prompt, preload, 0);
+		reader.print("\r");
+
+		while ((line = reader.readLine()) != null) 
+		{
+			if (line.equals("\\q")) 
+			{
+				break;
+			}
+			meetingmin.append(line).append("\n");
+			reader.setPrompt("");
+		}
+
+		s.sprintretrospectiveminutes = meetingmin.toString().replace("<newline>", "\n").replace("<exclamation-mark>", "!");
+	}
+	
+	
 
 	private void setDueDate() throws IOException {
 		String line;
