@@ -131,7 +131,7 @@ public class ListUserStories implements Command {
 				message = "No results";
 			}
 			at.addRule();
-			at.addRow(null, null, null, null, null, null, null, null, message);
+			at.addRow(null, null, null, null, null, null, null, null,null, message);
 		} else {
 			for (UserStory us : userStories) {
 				at.addRule();
