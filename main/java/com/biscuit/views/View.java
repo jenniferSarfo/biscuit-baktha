@@ -4,9 +4,20 @@
 
 package com.biscuit.views;
 
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import com.biscuit.ColorCodes;
 import com.biscuit.factories.UniversalCompleterFactory;
@@ -15,7 +26,26 @@ import jline.console.ConsoleReader;
 import jline.console.completer.AggregateCompleter;
 import jline.console.completer.Completer;
 
-public abstract class View {
+public abstract class View implements ActionListener{
+	
+	public static JFrame frame = new JFrame();
+	public static JFrame frame1 = new JFrame();
+    public static JPanel panel = new JPanel();
+    public static JPanel panel1 = new JPanel();
+    public static JPanel panel2 = new JPanel();
+    private static boolean flag = true;
+    public static JLabel name_p = new JLabel();
+    public static JLabel desc_p = new JLabel();
+    public static JLabel url_p = new JLabel();
+    public static JTextField name_t = new JTextField(20);
+    public static JTextField desc_t = new JTextField(20);
+    public static JTextField url_t = new JTextField(20);
+    
+    JButton exit = new JButton("Exit");
+    JButton add_project = new JButton("Add Project");
+    JButton view_project = new JButton("View project");
+    JButton s = new JButton("Save");
+    
 
 	static ConsoleReader reader;
 	static List<String> promptViews;
@@ -43,6 +73,23 @@ public abstract class View {
 	public View(View previousView, String name) {
 		this.previousView = previousView;
 		this.name = name;
+		if (flag) {
+			frame.setSize(500,100);
+			frame.setTitle("Dashboard");
+//			panel.add(dashboard);
+            panel.add(add_project);
+            panel.add(view_project);
+            panel.add(exit);
+            add_project.addActionListener(this);
+            
+            frame.setLayout(new GridLayout(0, 1));
+            //frame.setBounds(0, 0, 0, 0);
+            frame.add(panel);
+            frame.add(panel1);
+            //frame.pack();
+            frame.setVisible(true);
+            flag = false;
+        }
 	}
 
 	public void view() {
@@ -189,5 +236,28 @@ public abstract class View {
 			previousView.view();
 		}
 	}
+	public void actionPerformed(ActionEvent e) {
+        System.out.println(e.getActionCommand() + " is pressed");
+//        if (e.getSource().getClass().toString().equals("class javax.swing.JButton"))
+//            read(e.getActionCommand());
+        frame1.setSize(300,150);
+        frame1.setTitle("Add Project");
+        name_p.setText("Name");
+        panel2.add(name_p);
+        name_t.setBounds(100,20,165,25);
+        panel2.add(name_t);
+        desc_p.setText("Descrption");
+        panel2.add(desc_p);
+        desc_t.setBounds(100,20,165,25);
+        panel2.add(desc_t);
+        url_p.setText("GitHub URL");
+        panel2.add(url_p);
+        url_t.setBounds(100,20,165,25);
+        panel2.add(url_t);
+        panel2.add(s);
+        frame1.add(panel2);
+       // frame1.pack();
+        frame1.setVisible(true);
+    }
 
 }
