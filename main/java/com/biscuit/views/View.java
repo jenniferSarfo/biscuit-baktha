@@ -37,9 +37,14 @@ public abstract class View implements ActionListener{
     public static JLabel name_p = new JLabel();
     public static JLabel desc_p = new JLabel();
     public static JLabel url_p = new JLabel();
+    public static JLabel teamsize_p = new JLabel();
+    public static JLabel teammem_p = new JLabel();
     public static JTextField name_t = new JTextField(20);
     public static JTextField desc_t = new JTextField(20);
     public static JTextField url_t = new JTextField(20);
+
+    public static JTextField teamsize_t = new JTextField(20);
+    public static JTextField teammem_t = new JTextField(20);
     
     JButton exit = new JButton("Exit");
     JButton add_project = new JButton("Add Project");
@@ -240,7 +245,7 @@ public abstract class View implements ActionListener{
         System.out.println(e.getActionCommand() + " is pressed");
 //        if (e.getSource().getClass().toString().equals("class javax.swing.JButton"))
 //            read(e.getActionCommand());
-        frame1.setSize(300,150);
+        frame1.setSize(320,220);
         frame1.setTitle("Add Project");
         name_p.setText("Name");
         panel2.add(name_p);
@@ -254,6 +259,14 @@ public abstract class View implements ActionListener{
         panel2.add(url_p);
         url_t.setBounds(100,20,165,25);
         panel2.add(url_t);
+        panel2.add(teamsize_p);
+        teamsize_t.setBounds(100,20,165,25);
+        teamsize_p.setText("Team Size");
+        panel2.add(teamsize_t);
+        teammem_p.setText("Team Members");
+        panel2.add(teammem_p);
+        teammem_t.setBounds(100,20,165,25);
+        panel2.add(teammem_t);
         panel2.add(s);
         frame1.add(panel2);
        // frame1.pack();
