@@ -23,6 +23,9 @@ import com.biscuit.models.enums.Status;
 import com.biscuit.models.services.Finder.UserStories;
 
 import jline.console.completer.Completer;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 public class BacklogView extends View {
 
@@ -201,6 +204,7 @@ public class BacklogView extends View {
 				connection.getOutputStream().write(postDataBytes);
 
 				String authToken="";
+				String projectId="";
 				try {
 
 					InputStream content = (InputStream)connection.getInputStream();
@@ -234,9 +238,10 @@ public class BacklogView extends View {
 							new BufferedReader (new InputStreamReader (content));
 					String line;
 					while ((line = in.readLine()) != null) {
-						System.out.println(line);
+						projectId= line.split(", \"name\": ")[0].split("\"id\": ")[1];
 					}
 
+					mile(authToken, projectId);
 				}
 
 				catch (Exception e)
@@ -254,6 +259,97 @@ public class BacklogView extends View {
 		}
 
 		return false;
+	}
+
+	private void mile(String authToken, String projectId)
+	{
+		String prompt = reader.getPrompt();
+		try {
+			URL url1 = new URL("https://api.taiga.io/api/v1/milestones?project="+projectId);
+			HttpURLConnection conn = (HttpURLConnection) url1.openConnection();
+
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("Content-Type", "application/json");
+			conn.setRequestProperty("Authorization", "Bearer " + authToken);
+
+			List<String> usDescription = new ArrayList<String>();
+			List<String> usStoryPoints = new ArrayList<String>();
+
+
+			try {
+
+				InputStream content = (InputStream) conn.getInputStream();
+				BufferedReader in =
+						new BufferedReader(new InputStreamReader(content));
+
+				String json = in.readLine();
+
+				JSONTokener tokener = new JSONTokener(json);
+
+				JSONArray finalResult = new JSONArray(tokener);
+
+				for(int i = 0; i < finalResult.length();i++) {
+					JSONObject innerObj = finalResult.getJSONObject(i);
+					for(Iterator it = innerObj.keys(); it.hasNext(); ) {
+						String key = (String)it.next();
+
+						if(key.equals("user_stories")) {
+
+							Object o = innerObj.get(key);
+							String s = o.toString();
+
+							JSONTokener tokener1 = new JSONTokener(s);
+							JSONArray result = new JSONArray(tokener1);
+
+							for(int i1 = 0; i1 < result.length();i1++) {
+								JSONObject innerObj1 = result.getJSONObject(i1);
+								for(Iterator it1 = innerObj1.keys(); it1.hasNext(); )
+								{
+									String key1 = (String)it1.next();
+									try {
+										if(key1.equals("subject"))
+										{
+											usDescription.add(innerObj1.get(key1).toString());
+										}
+										else if(key1.equals("total_points"))
+										{
+											usStoryPoints.add(innerObj1.get(key1).toString());
+										}
+									}
+									catch (Exception e)
+									{System.out.println(key1);}
+								}
+							}
+
+
+							for(int k=0;k<usDescription.size();k++)
+							{
+								UserStory userStory = new UserStory();
+								userStory.title = usDescription.get(k);
+								userStory.description = "";
+								userStory.state = Status.valueOf("OPEN");
+								String[] allowedBusinessValues = {"MUST_HAVE", "GREAT", "GOOD", "AVERAGE", "NICE_TO_HAVE"};
+								int r = (int) (Math.random() * 5);
+								userStory.businessValue = BusinessValue.valueOf(allowedBusinessValues[r]);
+								userStory.initiatedDate = new Date();
+								userStory.plannedDate = new Date();
+								userStory.dueDate = new Date();
+								userStory.points = Integer.parseInt(usStoryPoints.get(k));
+								(new AddUserStoryToBacklog(reader, this.backlog.project)).executeCSV(userStory);
+							}
+						}
+					}
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+
+			}
+		}
+		catch (Exception e)
+		{
+			System.out.println(e);
+		}
+
 	}
 
 

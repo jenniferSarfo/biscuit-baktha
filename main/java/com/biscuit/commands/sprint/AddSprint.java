@@ -54,6 +54,8 @@ public class AddSprint implements Command {
 		setSprintPlanning();
 		setSprintGoalAcheived();
 		setSprintReviewUpdate();
+		setSprintRetrospectiveMeetingMinutes();
+		
 
 
 		reader.setPrompt(prompt);
@@ -224,7 +226,6 @@ public class AddSprint implements Command {
 		}
 	}
 
-
 	private void setDescription(StringBuilder description) throws IOException {
 		String line;
 		reader.setPrompt(ColorCodes.BLUE + "\ndescription:\n" + ColorCodes.YELLOW + "(\\q to end writing)\n" + ColorCodes.RESET);
@@ -259,6 +260,13 @@ public class AddSprint implements Command {
 		}
 	}
 
+	private void setSprintRetrospectiveMeetingMinutes() throws IOException 
+	{
+		reader.setPrompt(ColorCodes.BLUE + "Meeting Minutes of Sprint Retrospective (Initially Null) - Press any key to continue " + ColorCodes.RESET);
+		String value = reader.readLine();
+	}
+	
+	
 	private void setSprintGoalAcheived() throws IOException {
 		reader.setPrompt(ColorCodes.BLUE + "Sprint goal achieved (true/false) : when creating a new sprint, enter false" + ColorCodes.RESET);
 		String value = reader.readLine();

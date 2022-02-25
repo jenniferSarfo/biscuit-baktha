@@ -18,6 +18,7 @@ public class Sprint {
 	public String name;
 	public String description;
 	public Status state;
+	public String sprintretrospectiveminutes="";
 	public Date startDate;
 	public Date dueDate;
 	public int assignedEffort;
