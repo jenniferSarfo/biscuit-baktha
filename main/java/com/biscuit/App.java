@@ -4,44 +4,11 @@
 
 package com.biscuit;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
-
-//import java.util.Calendar;
-//import java.util.GregorianCalendar;
-
 import com.biscuit.models.Dashboard;
 import com.biscuit.views.DashboardView;
-import com.biscuit.views.View;
 
 public class App{
-//	public static JFrame frame = new JFrame();
-//	public static JFrame frame1 = new JFrame();
-//	
-//	public static JButton button = new JButton();
-//	
 	public static void main(String[] args) {
-		//GUI();
 		initialize();
 	}
 
