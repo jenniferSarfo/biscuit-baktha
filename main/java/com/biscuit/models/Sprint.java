@@ -30,6 +30,7 @@ public class Sprint {
 	public List<UserStory> userStories = new ArrayList<>();
 	public List<Bug> bugs;
 	public List<Test> tests;
+//	public String retrospectiveMinutes;
 
 	// Completed 0pt 0% ToDo 8pt
 
@@ -38,8 +39,8 @@ public class Sprint {
 
 	static 
 	{
-		fields = new String[] { "name", "description", "state", "start_date", "due_date", "assigned_effort", "velocity", "sprint_planning_completed", "sprint_goal_achieved", "sprint_review_completed" };
-		fieldsAsHeader = new String[] { "Name", "Description", "State", "Start Date", "Due Date", "Assigned Effort", "Velocity", "Sprint Planning Completed", "Sprint Goal Achieved","Sprint Review Completed"};
+		fields = new String[] { "name", "description", "state", "start_date", "due_date", "assigned_effort", "velocity", "sprint_planning_completed", "sprint_goal_achieved", "sprint_review_completed","retrospective_minutes" };
+		fieldsAsHeader = new String[] { "Name", "Description", "State", "Start Date", "Due Date", "Assigned Effort", "Velocity", "Sprint Planning Completed", "Sprint Goal Achieved","Sprint Review Completed", "Sprint Minutes"};
 	}
 
 	public void addUserStory(UserStory userStory) {
