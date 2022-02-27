@@ -91,6 +91,7 @@ public class SprintView extends View {
 				}
 
 				UserStroryView usv = new UserStroryView(this, us);
+				System.out.println("Viewing User story");
 				usv.view();
 				return true;
 			}

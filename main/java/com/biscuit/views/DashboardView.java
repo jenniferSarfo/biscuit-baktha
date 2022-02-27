@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import com.biscuit.ColorCodes;
 import com.biscuit.commands.help.DashboardHelp;
 import com.biscuit.commands.project.AddProject;
 import com.biscuit.commands.project.EditProject;
@@ -58,6 +59,7 @@ public class DashboardView extends View {
 				Project p = Projects.getProject(words[2]);
 				if (p != null) {
 					ProjectView pv = new ProjectView(this, p);
+					System.out.println("Viewing Project");
 					pv.view();
 					return true;
 				}
@@ -134,6 +136,7 @@ public class DashboardView extends View {
 			Project p = Projects.getProject(words[1]);
 			if (p != null) {
 				ProjectView pv = new ProjectView(this, p);
+				System.out.println("In project");
 				pv.view();
 				return true;
 			}
