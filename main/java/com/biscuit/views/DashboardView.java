@@ -83,6 +83,11 @@ public class DashboardView extends View {
 		return false;
 	}
 
+	public List<String> getSortedListOfProjects()
+	{
+		return null;
+	}
+
 
 	private boolean execute2Keyword(String[] words) throws IOException {
 		if (words[0].equals("go_to") || words[0].equals(">")) {
