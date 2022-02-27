@@ -6,6 +6,9 @@ package com.biscuit.views;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import com.biscuit.commands.help.DashboardHelp;
@@ -79,13 +82,47 @@ public class DashboardView extends View {
 				return false;
 			}
 		}
+		else if (words[0].equals("list") || words[0].equals("-ls")) {
+			if(words[1].equals("projects") && words[2].equals("-sort")){
+				List<String> sortedFiles = getSortedListOfProjects();
+
+				for(String s: sortedFiles)
+				{
+					System.out.println(s);
+				}
+
+				resetCompleters();
+				return true;
+			}
+		}
 
 		return false;
 	}
 
 	public List<String> getSortedListOfProjects()
 	{
-		return null;
+		String userHome = System.getProperty("user.home");
+
+		File folder = new File(userHome+"/"+"biscuit");
+		File[] listOfFiles = folder.listFiles();
+
+		if(listOfFiles == null) {
+			return null;
+		}
+		else {
+			List<String> projectFiles = new ArrayList<String>();
+			for (int i = 0; i < listOfFiles.length; i++) {
+				if (listOfFiles[i].isFile()) {
+					projectFiles.add(listOfFiles[i].getName().toString());
+				} else if (listOfFiles[i].isDirectory()) {
+					continue;
+				}
+			}
+
+			Collections.sort(projectFiles);
+
+			return projectFiles;
+		}
 	}
 
 
