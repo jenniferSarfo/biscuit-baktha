@@ -3,6 +3,7 @@ package com.biscuit.views;
 import java.io.IOException;
 import java.util.List;
 
+import com.biscuit.ColorCodes;
 import com.biscuit.commands.help.ReleaseHelp;
 import com.biscuit.commands.release.ChangeStatusRelease;
 import com.biscuit.commands.release.EditRelease;
@@ -81,6 +82,7 @@ public class ReleaseView extends View {
 				}
 
 				SprintView sv = new SprintView(this, s);
+				System.out.println("Viewing Sprint");
 				sv.view();
 				return true;
 			}

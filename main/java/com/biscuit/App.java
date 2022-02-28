@@ -23,6 +23,8 @@ public class App{
 		Dashboard.getInstance().save();
 
 		DashboardView dbv = new DashboardView();
+		System.out.println("Opening Dashboard");
+		System.out.println("The project GUI will be displayed on the initial run, please close the GUI to continue with CLI");
 		dbv.view();
 
 	}

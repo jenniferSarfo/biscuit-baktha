@@ -7,6 +7,7 @@ package com.biscuit.views;
 import java.io.IOException;
 import java.util.List;
 
+import com.biscuit.ColorCodes;
 import com.biscuit.commands.help.ProjectHelp;
 import com.biscuit.commands.planner.ShowPlan;
 import com.biscuit.commands.planner.ShowPlanDetails;
@@ -116,6 +117,7 @@ public class ProjectView extends View {
 					// r.project = project;
 
 					ReleaseView rv = new ReleaseView(this, r);
+					System.out.println("Viewing release");
 					rv.view();
 					return true;
 				}
@@ -129,6 +131,7 @@ public class ProjectView extends View {
 					// s.project = project;
 
 					SprintView sv = new SprintView(this, s);
+					System.out.println("Viewing Sprint");
 					sv.view();
 					return true;
 				}
@@ -140,6 +143,7 @@ public class ProjectView extends View {
 					}
 
 					UserStroryView usv = new UserStroryView(this, us);
+					System.out.println("Viewing User story");
 					usv.view();
 					return true;
 				}
@@ -171,23 +175,28 @@ public class ProjectView extends View {
 			if (words[1].equals("backlog")) {
 				this.project.backlog.project = this.project;
 				BacklogView bv = new BacklogView(this, this.project.backlog);
+				System.out.println("Navigating to Backlog");
 				bv.view();
+				
 				return true;
 			} else if (words[1].equals("releases")) {
 
 				ReleasesView rsv = new ReleasesView(this, project);
+				System.out.println("Navigating to Release");
 				rsv.view();
 
 				return true;
 			} else if (words[1].equals("sprints")) {
 
 				SprintsView ssv = new SprintsView(this, project);
+				System.out.println("Navigating to Sprint");
 				ssv.view();
 
 				return true;
 			} else if (words[1].equals("planner")) {
 
 				PlannerView pv = new PlannerView(this, project);
+				System.out.println("Navigating to Planner");
 				pv.view();
 
 				return true;

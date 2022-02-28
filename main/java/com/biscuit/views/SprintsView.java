@@ -78,6 +78,7 @@ public class SprintsView extends View {
 				// s.project = project;
 
 				SprintView sv = new SprintView(this, s);
+				System.out.println("Viewing Sprint");
 				sv.view();
 				return true;
 			}

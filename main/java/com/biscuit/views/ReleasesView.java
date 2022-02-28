@@ -3,6 +3,7 @@ package com.biscuit.views;
 import java.io.IOException;
 import java.util.List;
 
+import com.biscuit.ColorCodes;
 import com.biscuit.commands.help.ReleasesHelp;
 import com.biscuit.commands.release.AddRelease;
 import com.biscuit.commands.release.ListReleases;
@@ -71,6 +72,7 @@ public class ReleasesView extends View {
 				// r.project = project;
 
 				ReleaseView rv = new ReleaseView(this, r);
+				System.out.println("Viewing Release");
 				rv.view();
 				return true;
 			}
