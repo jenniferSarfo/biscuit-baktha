@@ -24,6 +24,7 @@ public class UserStory {
 	public Date dueDate = null;
 	public int points;
 	public int Happiness;
+	public String comments;
 
 	public static String[] fields;
 
@@ -31,8 +32,10 @@ public class UserStory {
 	public List<Bug> bugs = new ArrayList<>();
 	public List<Test> tests = new ArrayList<>();
 
+	
+
 	static {
-		fields = new String[] { "title", "description", "state", "business_value", "initiated_date", "planned_date", "due_date", "tasks", "story points","Happiness" };
+		fields = new String[] { "title", "description", "state", "business_value", "initiated_date", "planned_date", "due_date", "tasks", "story points","Happiness","comments" };
 	}
 
 

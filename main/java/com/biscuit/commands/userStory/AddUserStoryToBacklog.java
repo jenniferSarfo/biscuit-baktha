@@ -40,6 +40,8 @@ public class AddUserStoryToBacklog implements Command {
 	public boolean execute() throws IOException {
 		StringBuilder description = new StringBuilder();
 		String prompt = reader.getPrompt();
+		
+		StringBuilder comments = new StringBuilder();
 
 		userStory.project = project;
 		setTitle();
@@ -50,6 +52,7 @@ public class AddUserStoryToBacklog implements Command {
 		setBusinessValue();
 		setPoints();
 		setHappiness();
+		setComments(comments);
 		userStory.initiatedDate = new Date();
 		userStory.plannedDate = new Date(0);
 		userStory.dueDate = new Date(0);
@@ -190,6 +193,23 @@ public class AddUserStoryToBacklog implements Command {
 
 		userStory.description = description.toString();
 	}
+	
+	private void setComments(StringBuilder comments) throws IOException {
+		String line;
+		reader.setPrompt(ColorCodes.BLUE + "\ncomments:\n" + ColorCodes.YELLOW + "(\\q to end writing)\n" + ColorCodes.RESET);
+
+		while ((line = reader.readLine()) != null) {
+			if (line.equals("\\q")) {
+				break;
+			}
+			comments.append(line).append("\n");
+			reader.setPrompt("");
+		}
+
+		userStory.comments = comments.toString();
+	}
+	
+	
 
 
 	private void setTitle() throws IOException {

@@ -146,8 +146,8 @@ public class ShowPlanDetails implements Command {
 				.setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
 		at.addRule();
 
-		at.addRow("Title", "Description", "State", "Business Value", "Initiated Date", "Planned Date", "Due Date", "Tasks #", "Story Points","Happiness")
-				.setAlignment(new char[] { 'c', 'c', 'l', 'l', 'c', 'c', 'c', 'c', 'c','c' });
+		at.addRow("Title", "Description", "State", "Business Value", "Initiated Date", "Planned Date", "Due Date", "Tasks #", "Story Points","Happiness","comments")
+				.setAlignment(new char[] { 'c', 'c', 'l', 'l', 'c', 'c', 'c', 'c', 'c','c','c' });
 		at.addRule();
 
 		if (s.userStories.size() == 0) {
@@ -162,8 +162,8 @@ public class ShowPlanDetails implements Command {
 		for (UserStory us : sortedByPlannedDate) {
 
 			at.addRow(us.title, us.description, us.state, us.businessValue, DateService.getDateAsString(us.initiatedDate),
-					DateService.getDateAsString(us.plannedDate), DateService.getDateAsString(us.dueDate), us.tasks.size(), us.points,us.Happiness)
-					.setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c', 'c', 'c','c' });
+					DateService.getDateAsString(us.plannedDate), DateService.getDateAsString(us.dueDate), us.tasks.size(), us.points,us.Happiness,us.comments)
+					.setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c', 'c', 'c','c','l' });
 
 			at.addRule();
 		}
@@ -181,7 +181,7 @@ public class ShowPlanDetails implements Command {
 	private String colorize(String tableString) {
 		String replace;
 		String[] fields = new String[] { "Name", "Description", "State", "Start Date", "Due Date", "Assigned Effort", "Velocity", "Title", "Business Value",
-				"Initiated Date", "Planned Date", "Story Points", "Tasks #", "Happiness" };
+				"Initiated Date", "Planned Date", "Story Points", "Tasks #", "Happiness","comments" };
 
 		tableString = tableString.replaceFirst("PLAN -> PROJECT: " + project.name, ColorCodes.BLUE + "PLAN -> PROJECT: " + project.name + ColorCodes.RESET);
 		tableString = tableString.replaceFirst(project.name, ColorCodes.BLUE + project.name + ColorCodes.RESET);

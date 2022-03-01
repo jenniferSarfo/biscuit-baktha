@@ -117,11 +117,11 @@ public class ListUserStories implements Command {
 
 		at.addRule();
 		if (!this.title.isEmpty()) {
-			at.addRow(null, null, null, null, null, null, null, null, null, this.title).setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
+			at.addRow(null, null, null, null, null, null, null, null, null,null, this.title).setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c','c' });
 			at.addRule();
 		}
-		at.addRow("Title", "Description", "State", "Business Value", "Initiated Date", "Planned Date", "Due Date", "Tasks #", "Points","Happiness")
-				.setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c', 'c', 'c','c' });
+		at.addRow("Title", "Description", "State", "Business Value", "Initiated Date", "Planned Date", "Due Date", "Tasks #", "Points","Happiness","comments")
+				.setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c', 'c', 'c','c','l' });
 
 		if (userStories.size() == 0) {
 			String message;
@@ -131,19 +131,19 @@ public class ListUserStories implements Command {
 				message = "No results";
 			}
 			at.addRule();
-			at.addRow(null, null, null, null, null, null, null, null,null, message);
+			at.addRow(null, null, null, null, null, null, null, null,null,null, message);
 		} else {
 			for (UserStory us : userStories) {
 				at.addRule();
 
 				at.addRow(us.title, us.description, us.state, us.businessValue, DateService.getDateAsString(us.initiatedDate),
-						DateService.getDateAsString(us.plannedDate), DateService.getDateAsString(us.dueDate), us.tasks.size(), us.points,us.Happiness)
-						.setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c', 'c', 'c','c' });
+						DateService.getDateAsString(us.plannedDate), DateService.getDateAsString(us.dueDate), us.tasks.size(), us.points,us.Happiness,us.comments)
+						.setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c', 'c', 'c','c','l' });
 			} // for
 		}
 
 		at.addRule();
-		at.addRow(null, null, null, null, null, null, null, null, null, "Total: " + userStories.size());
+		at.addRow(null, null, null, null, null, null, null, null, null,null, "Total: " + userStories.size());
 		at.addRule();
 
 		V2_AsciiTableRenderer rend = new V2_AsciiTableRenderer();
@@ -174,6 +174,7 @@ public class ListUserStories implements Command {
 		Comparator<UserStory> byTasks = (us1, us2) -> Integer.compare(us1.tasks.size(), us2.tasks.size());
 		Comparator<UserStory> byPoints = (us1, us2) -> Integer.compare(us1.points, us2.points);
 		Comparator<UserStory> byHappiness = (us1, us2) -> Integer.compare(us1.Happiness, us2.Happiness);
+		Comparator<UserStory> byComments = (us1, us2) -> us1.comments.compareTo(us2.comments);
 		Comparator<UserStory> byFiled = null;
 
 		if (sortBy.equals(UserStory.fields[0])) {
@@ -194,8 +195,10 @@ public class ListUserStories implements Command {
 			byFiled = byTasks;
 		} else if (sortBy.equals(UserStory.fields[8])) {
 			byFiled = byPoints;
-		} else if (sortBy.equals(UserStory.fields[8])) {
+		} else if (sortBy.equals(UserStory.fields[9])) {
 			byFiled = byHappiness;
+		} else if (sortBy.equals(UserStory.fields[10])) {
+			byFiled = byComments;
 			
 		} else {
 			return;
@@ -226,7 +229,8 @@ public class ListUserStories implements Command {
 						|| String.valueOf(us.Happiness).contains(filterBy)
 						|| DateService.getDateAsString(us.initiatedDate).toLowerCase().contains(filterBy)
 						|| DateService.getDateAsString(us.plannedDate).toLowerCase().contains(filterBy)
-						|| DateService.getDateAsString(us.dueDate).toLowerCase().contains(filterBy))
+						|| DateService.getDateAsString(us.dueDate).toLowerCase().contains(filterBy)
+						|| us.comments.toLowerCase().contains(filterBy))
 				.collect(Collectors.toList());
 		userStories.clear();
 		userStories.addAll(filtered);
@@ -244,6 +248,7 @@ public class ListUserStories implements Command {
 		tableString = tableString.replaceFirst("Tasks #", ColorCodes.BLUE + "Tasks #" + ColorCodes.RESET);
 		tableString = tableString.replaceFirst("Points", ColorCodes.BLUE + "Points" + ColorCodes.RESET);
 		tableString = tableString.replaceFirst("Happiness", ColorCodes.BLUE + "Happiness" + ColorCodes.RESET);
+		tableString = tableString.replaceFirst("comments", ColorCodes.BLUE + "comments" + ColorCodes.RESET);
 		return tableString.replaceAll("MUST_HAVE", ColorCodes.YELLOW + "MUST_HAVE" + ColorCodes.RESET);
 	}
 
