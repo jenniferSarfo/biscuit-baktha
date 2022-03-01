@@ -248,7 +248,7 @@ public class AddSprint implements Command {
 	}
 
 	private void setSprintPlanning() throws IOException {
-		reader.setPrompt(ColorCodes.BLUE + "Sprint planning completed (true/false) " + ColorCodes.RESET);
+		reader.setPrompt(ColorCodes.BLUE + "Sprint planning completed (true/false): " + ColorCodes.RESET);
 		String value = reader.readLine();
 
 		if (value.equalsIgnoreCase("true"))
@@ -262,14 +262,14 @@ public class AddSprint implements Command {
 
 	private void setSprintRetrospectiveMeetingMinutes() throws IOException 
 	{
-		reader.setPrompt(ColorCodes.BLUE + "Meeting minutes of sprint retrospective - Press any key to continue " + ColorCodes.RESET);
+		reader.setPrompt(ColorCodes.BLUE + "Meeting minutes of sprint retrospective " + ColorCodes.RESET);
 		String value = reader.readLine();
 		sprint.sprintretrospectiveminutes = value;
 	}
 	
 	
 	private void setSprintGoalAcheived() throws IOException {
-		reader.setPrompt(ColorCodes.BLUE + "Sprint goal achieved (true/false) : " + ColorCodes.RESET);
+		reader.setPrompt(ColorCodes.BLUE + "Sprint goal achieved (true/false): " + ColorCodes.RESET);
 		String value = reader.readLine();
 
 		if (value.equalsIgnoreCase("true"))
@@ -283,7 +283,7 @@ public class AddSprint implements Command {
 	
 	private void setSprintReviewUpdate() throws IOException 
 	{
-		reader.setPrompt(ColorCodes.BLUE + "Sprint review completed (true/false) : " + ColorCodes.RESET);
+		reader.setPrompt(ColorCodes.BLUE + "Sprint review completed (true/false): " + ColorCodes.RESET);
 		String value = reader.readLine();
 
 		if (value.equalsIgnoreCase("true"))
