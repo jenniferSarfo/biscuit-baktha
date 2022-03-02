@@ -4,8 +4,17 @@
 
 package com.biscuit.views;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.biscuit.ColorCodes;
 import com.biscuit.commands.help.ProjectHelp;
@@ -105,7 +114,7 @@ public class ProjectView extends View {
 	}
 
 
-	private boolean execute3Keywords(String[] words) {
+	private boolean execute3Keywords(String[] words) throws IOException{
 		if (words[0].equals("go_to") || words[0].equals(">")) {
 			if (words[1].equals("release")) {
 				if (Releases.getAllNames(project).contains(words[2])) {
@@ -148,6 +157,102 @@ public class ProjectView extends View {
 					return true;
 				}
 			}
+		}
+		else if(words[0].equals("add") && words[1].equals("team") && words[2].equals("viaTaigaAPI"))
+		{
+			String prompt = reader.getPrompt();
+			URL url = new URL ("https://api.taiga.io/api/v1/auth");
+			Map<String,Object> params = new LinkedHashMap<>();
+			params.put("type", "normal");
+			reader.setPrompt(ColorCodes.BLUE + "Enter taiga username" + ColorCodes.RESET);
+			String username = reader.readLine();
+			reader.setPrompt(ColorCodes.BLUE + "Enter taiga password" + ColorCodes.RESET);
+			String password = reader.readLine();
+			params.put("username", username);
+			params.put("password", password);
+
+			StringBuilder postData = new StringBuilder();
+			for (Map.Entry<String,Object> param : params.entrySet()) {
+				if (postData.length() != 0) postData.append('&');
+				postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+				postData.append('=');
+				postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+			}
+			byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+
+
+
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			connection.setDoOutput(true);
+			connection.getOutputStream().write(postDataBytes);
+
+			String authToken="";
+			try {
+
+				InputStream content = (InputStream)connection.getInputStream();
+				BufferedReader in   =
+						new BufferedReader (new InputStreamReader(content));
+				String line;
+				while ((line = in.readLine()) != null) {
+					String[] arrOfStr = line.split("auth_token");
+					authToken=arrOfStr[1].substring(4,216);
+				}
+
+			}
+			catch (Exception e)
+			{
+				System.out.println(e);
+			}
+
+			reader.setPrompt(ColorCodes.BLUE + "Enter project slug from Taiga" + ColorCodes.RESET);
+			String taigaSlug = reader.readLine();
+
+			URL url1 = new URL ("https://api.taiga.io/api/v1/projects/by_slug?slug="+taigaSlug);
+			HttpURLConnection conn = (HttpURLConnection) url1.openConnection();
+
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("Content-Type", "application/json");
+			conn.setRequestProperty("Authorization", "Bearer " + authToken);
+
+			try {
+				InputStream content = (InputStream)conn.getInputStream();
+				BufferedReader in   =
+						new BufferedReader (new InputStreamReader (content));
+				String line;
+				HashSet<String> names = new HashSet<>();
+				while ((line = in.readLine()) != null) {
+					String[] lines = line.split("\"full_name_display\": ");
+
+					for(int i=1;i<lines.length;i++)
+					{
+						String temp = lines[i].split(",")[0];
+						names.add(temp.replace("\"", ""));
+					}
+
+					String[] teamMembers = names.toArray(new String[names.size()]);
+					project.nameOfTeammembers = teamMembers;
+
+					System.out.println("Below Team members have been successfully added to the project:");
+
+					for(String name : teamMembers)
+					{
+						System.out.println(name);
+					}
+
+					project.save();
+					resetCompleters();
+					reader.setPrompt(prompt);
+					return true;
+				}
+			}
+
+			catch (Exception e)
+			{
+				System.out.println(e);
+			}
+
 		}
 
 		return false;
@@ -223,7 +328,6 @@ public class ProjectView extends View {
 				return true;
 			}
 		}
-
 		return false;
 	}
 
@@ -270,7 +374,7 @@ public class ProjectView extends View {
 		else if (words[0].equals("listteam") || words[0].equals("-s"))
 		{
 			return (new ShowTeam(project).execute());
-	    } 
+	    }
 		return false;
 	}
 
