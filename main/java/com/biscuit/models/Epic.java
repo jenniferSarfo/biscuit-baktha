@@ -46,6 +46,10 @@ public class Epic {
 	public void addUserStory(UserStory userStory) {
 		this.userStories.add(userStory);
 	}
+	
+	public List<UserStory> getUserStories() {
+		return this.userStories;
+	}
 
 	public void save() {
 		project.save();
