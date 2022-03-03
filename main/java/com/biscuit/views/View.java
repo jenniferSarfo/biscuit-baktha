@@ -8,6 +8,7 @@ import com.biscuit.commands.project.AddProject;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -31,9 +33,11 @@ public abstract class View implements ActionListener{
 	
 	public static JFrame dashboardFrame = new JFrame();
 	public static JFrame addProjectFrame = new JFrame();
+	public static JFrame listProjectFrame = new JFrame();
     public static JPanel panel = new JPanel();
     public static JPanel panel1 = new JPanel();
     public static JPanel panel2 = new JPanel();
+    public static JPanel panel3 = new JPanel();
     private static boolean flag = true;
     public static JLabel nameLabel = new JLabel();
     public static JLabel descriptionLabel = new JLabel();
@@ -44,6 +48,9 @@ public abstract class View implements ActionListener{
     public static JTextField urlTextField = new JTextField(20);
 
     public static JTextField teamMembersTextField = new JTextField(20);
+    
+    public static JTextArea text = new JTextArea();
+    
     
     JButton exit = new JButton("Exit");
 	JButton addProjectExit = new JButton("Exit");
@@ -94,7 +101,7 @@ public abstract class View implements ActionListener{
 			});
 
             add_project.addActionListener(this);
-            
+            view_project.addActionListener(this);
             dashboardFrame.setLayout(new GridLayout(0, 1));
             dashboardFrame.add(panel);
             dashboardFrame.add(panel1);
@@ -248,6 +255,30 @@ public abstract class View implements ActionListener{
 		}
 	}
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == view_project) {
+			System.out.println("Listing Projects in the home directory");
+			String userHome = System.getProperty("user.home");
+
+			File folder = new File(userHome+"/"+"biscuit");
+			File[] listOfFiles = folder.listFiles();
+			String fileName = "";
+
+			if (listOfFiles == null)
+				System.out.println("You don't have biscuit folder in your home directory to list projects");
+			else {
+				for (int i = 0; i < listOfFiles.length; i++) {
+					fileName += "\n"+listOfFiles[i].getName();
+				}
+				text.setText(fileName);
+				listProjectFrame.setSize(50,200);
+				panel3.add(text);
+				listProjectFrame.setLayout(new GridLayout(0, 1));
+				listProjectFrame.add(panel3);
+				listProjectFrame.setVisible(true);
+			}
+			
+		}
+		if (e.getSource()==add_project){
         addProjectFrame.setSize(333,260);
         addProjectFrame.setTitle("Add Project");
         nameLabel.setText("Name");
@@ -308,5 +339,6 @@ public abstract class View implements ActionListener{
 			}
 		 });
     }
+	}
 	
 }
