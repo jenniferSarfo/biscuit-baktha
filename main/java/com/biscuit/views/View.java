@@ -4,6 +4,7 @@
 
 package com.biscuit.views;
 
+import com.biscuit.commands.project.AddProject;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,13 +12,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import static javax.swing.JOptionPane.showMessageDialog;
+
 
 import com.biscuit.ColorCodes;
 import com.biscuit.factories.UniversalCompleterFactory;
@@ -28,28 +29,27 @@ import jline.console.completer.Completer;
 
 public abstract class View implements ActionListener{
 	
-	public static JFrame frame = new JFrame();
-	public static JFrame frame1 = new JFrame();
+	public static JFrame dashboardFrame = new JFrame();
+	public static JFrame addProjectFrame = new JFrame();
     public static JPanel panel = new JPanel();
     public static JPanel panel1 = new JPanel();
     public static JPanel panel2 = new JPanel();
     private static boolean flag = true;
-    public static JLabel name_p = new JLabel();
-    public static JLabel desc_p = new JLabel();
-    public static JLabel url_p = new JLabel();
-    public static JLabel teamsize_p = new JLabel();
-    public static JLabel teammem_p = new JLabel();
-    public static JTextField name_t = new JTextField(20);
-    public static JTextField desc_t = new JTextField(20);
-    public static JTextField url_t = new JTextField(20);
+    public static JLabel nameLabel = new JLabel();
+    public static JLabel descriptionLabel = new JLabel();
+    public static JLabel urlLabel = new JLabel();
+    public static JLabel teamMembersLabel = new JLabel();
+    public static JTextField nameTextField = new JTextField(20);
+    public static JTextField descriptionTextField = new JTextField(20);
+    public static JTextField urlTextField = new JTextField(20);
 
-    public static JTextField teamsize_t = new JTextField(20);
-    public static JTextField teammem_t = new JTextField(20);
+    public static JTextField teamMembersTextField = new JTextField(20);
     
     JButton exit = new JButton("Exit");
+	JButton addProjectExit = new JButton("Exit");
     JButton add_project = new JButton("Add Project");
     JButton view_project = new JButton("View project");
-    JButton s = new JButton("Save");
+    JButton save = new JButton("Save");
     
 
 	static ConsoleReader reader;
@@ -79,20 +79,26 @@ public abstract class View implements ActionListener{
 		this.previousView = previousView;
 		this.name = name;
 		if (flag) {
-			frame.setSize(500,100);
-			frame.setTitle("Dashboard");
+			dashboardFrame.setSize(500,100);
+			dashboardFrame.setTitle("Dashboard");
 //			panel.add(dashboard);
             panel.add(add_project);
             panel.add(view_project);
             panel.add(exit);
+
+			exit.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e)
+				{
+					dashboardFrame.dispose();
+				}
+			});
+
             add_project.addActionListener(this);
             
-            frame.setLayout(new GridLayout(0, 1));
-            //frame.setBounds(0, 0, 0, 0);
-            frame.add(panel);
-            frame.add(panel1);
-            //frame.pack();
-            frame.setVisible(true);
+            dashboardFrame.setLayout(new GridLayout(0, 1));
+            dashboardFrame.add(panel);
+            dashboardFrame.add(panel1);
+            dashboardFrame.setVisible(true);
             flag = false;
         }
 	}
@@ -242,35 +248,65 @@ public abstract class View implements ActionListener{
 		}
 	}
 	public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getActionCommand() + " is pressed");
-//        if (e.getSource().getClass().toString().equals("class javax.swing.JButton"))
-//            read(e.getActionCommand());
-        frame1.setSize(320,220);
-        frame1.setTitle("Add Project");
-        name_p.setText("Name");
-        panel2.add(name_p);
-        name_t.setBounds(100,20,165,25);
-        panel2.add(name_t);
-        desc_p.setText("Descrption");
-        panel2.add(desc_p);
-        desc_t.setBounds(100,20,165,25);
-        panel2.add(desc_t);
-        url_p.setText("GitHub URL");
-        panel2.add(url_p);
-        url_t.setBounds(100,20,165,25);
-        panel2.add(url_t);
-        panel2.add(teamsize_p);
-        teamsize_t.setBounds(100,20,165,25);
-        teamsize_p.setText("Team Size");
-        panel2.add(teamsize_t);
-        teammem_p.setText("Team Members");
-        panel2.add(teammem_p);
-        teammem_t.setBounds(100,20,165,25);
-        panel2.add(teammem_t);
-        panel2.add(s);
-        frame1.add(panel2);
-       // frame1.pack();
-        frame1.setVisible(true);
-    }
+        addProjectFrame.setSize(333,260);
+        addProjectFrame.setTitle("Add Project");
+        nameLabel.setText("Name");
+        panel2.add(nameLabel);
+        nameTextField.setBounds(100,20,165,25);
+        panel2.add(nameTextField);
+        descriptionLabel.setText("Descrption");
+        panel2.add(descriptionLabel);
+        descriptionTextField.setBounds(100,20,165,25);
+        panel2.add(descriptionTextField);
+        urlLabel.setText("GitHub URL");
+        panel2.add(urlLabel);
+        urlTextField.setBounds(100,20,165,25);
+        panel2.add(urlTextField);
+        teamMembersLabel.setText("Team Members names seperated by ','");
+        panel2.add(teamMembersLabel);
+        teamMembersTextField.setBounds(100,20,165,25);
+        panel2.add(teamMembersTextField);
+		save.setBounds(160,20,165,25);
+        panel2.add(save);
+		panel2.add(addProjectExit);
+        addProjectFrame.add(panel2);
+        addProjectFrame.setVisible(true);
+		addProjectFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
+		addProjectExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				addProjectFrame.dispose();
+			}
+		});
+
+		save.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent ae){
+
+				String name = nameTextField.getText();
+				String description = descriptionTextField.getText();
+				String url = urlTextField.getText();
+				String[] teamMembers = teamMembersTextField.getText().split(",");
+				int teamSize = teamMembers.length;
+								
+				if(teamSize==0 || name.length()==0 || description.length()==0 || url.length()==0)
+				{
+					showMessageDialog(null, "Please fill all the details");
+				}
+				else
+				{
+					try {
+						(new AddProject(reader)).executeFromGUI(name, description, url, teamMembers, teamSize);
+						showMessageDialog(null, "You have successfully created the project");
+						addProjectFrame.dispose();
+					} catch (Exception e) {
+						System.out.println(e);
+					}
+					
+				}
+		
+			}
+		 });
+    }
+	
 }

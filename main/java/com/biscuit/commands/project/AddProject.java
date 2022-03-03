@@ -87,4 +87,24 @@ public class AddProject implements Command {
 		return false;
 	}
 
+	public boolean executeFromGUI(String name, String description, String url, String[] teamMembers, int teamSize) throws IOException {
+		project.backlog.project = project;
+		
+		project.name = name;
+		project.description = description;
+		project.numberOfTeammembers= String.valueOf(teamSize);
+	    project.nameOfTeammembers=teamMembers;    
+		project.githubURL = url;
+
+		dashboard.addProject(project);
+		dashboard.save();
+		project.save();
+
+
+		return false;
+	}
+
+
+
+
 }
