@@ -1,4 +1,4 @@
-package com.biscuit.commands.sprint;
+package com.biscuit.commands.epic;
 
 import java.io.IOException;
 
@@ -8,18 +8,17 @@ import com.biscuit.models.Epic;
 import com.biscuit.models.Sprint;
 import com.biscuit.models.enums.Status;
 
-public class ChangeStatusSprint implements Command {
-	Sprint s = null;
-	Epic epic = null;
+public class ChangeStatusEpic implements Command {
+	Epic s = null;
 	Status state = null;
 
 
-	public ChangeStatusSprint(Sprint s, Status state) {
+	public ChangeStatusEpic(Epic s, Status state) {
 		super();
 		this.s = s;
 		this.state = state;
 	}
-	
+
 
 	@Override
 	public boolean execute() throws IOException {
@@ -30,7 +29,7 @@ public class ChangeStatusSprint implements Command {
 
 		s.save();
 
-		System.out.println(ColorCodes.GREEN + "State of sprint " + s.name + " has been changed from " + oldState
+		System.out.println(ColorCodes.GREEN + "State of epic " + s.name + " has been changed from " + oldState
 				+ " to " + s.state + ColorCodes.RED);
 
 		return true;

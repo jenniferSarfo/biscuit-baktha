@@ -3,6 +3,8 @@ package com.biscuit.views;
 import java.io.IOException;
 import java.util.List;
 
+import com.biscuit.commands.epic.AddEpic;
+import com.biscuit.commands.epic.ListEpics;
 import com.biscuit.commands.help.SprintHelp;
 import com.biscuit.commands.sprint.ChangeStatusSprint;
 import com.biscuit.commands.sprint.EditSprint;
@@ -10,9 +12,13 @@ import com.biscuit.commands.sprint.ShowSprint;
 import com.biscuit.commands.userStory.AddUserStoryToSprint;
 import com.biscuit.commands.userStory.ListUserStories;
 import com.biscuit.factories.SprintCompleterFactory;
+import com.biscuit.models.Epic;
+import com.biscuit.models.Release;
 import com.biscuit.models.Sprint;
 import com.biscuit.models.UserStory;
 import com.biscuit.models.enums.Status;
+import com.biscuit.models.services.Finder.Epics;
+import com.biscuit.models.services.Finder.Releases;
 import com.biscuit.models.services.Finder.UserStories;
 
 import jline.console.completer.Completer;
@@ -76,6 +82,10 @@ public class SprintView extends View {
 				(new ListUserStories(sprint, sprint.name + " (User Stories)")).execute();
 				return true;
 			}
+			else if (words[1].equals("epic")) {
+				(new ListEpics(sprint, sprint.name + " (User Stories)")).execute();
+				return true;
+			}
 		} else if (words[0].equals("add") || words[0].equals("-a")) {
 			if (words[1].equals("user_story") || words[1].equals("us") || words[1].equals("US")) {
 				(new AddUserStoryToSprint(reader, sprint)).execute();
@@ -83,8 +93,31 @@ public class SprintView extends View {
 
 				return true;
 			}
+			else if (words[1].equals("epic")) {
+				(new AddEpic(reader, sprint.project, sprint)).execute();
+				resetCompleters();
+
+				return true;
+			}
 		} else if (words[0].equals("go_to") || words[0].equals(">")) {
-			if (UserStories.getAllNames(sprint).contains(words[1])) {
+//			if (words[1].equals("epic")) {
+				if (Epics.getAllNames(sprint).contains(words[1])) {
+					Epic r = Epics.find(sprint, words[1]);
+					if (r == null) {
+						return false;
+					}
+
+					// r.project = project;
+
+					EpicView rv = new EpicView(this, r);
+					System.out.println("Viewing epics");
+					rv.view();
+					return true;
+				}
+//			}
+			
+			else {
+				if (UserStories.getAllNames(sprint).contains(words[1])) {
 				UserStory us = UserStories.find(sprint, words[1]);
 				if (us == null) {
 					return false;
@@ -94,6 +127,7 @@ public class SprintView extends View {
 				System.out.println("Viewing User story");
 				usv.view();
 				return true;
+			}
 			}
 		}
 		return false;
