@@ -7,6 +7,7 @@ package com.biscuit.views;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +31,11 @@ public abstract class View implements ActionListener{
 	
 	public static JFrame frame = new JFrame();
 	public static JFrame frame1 = new JFrame();
+	public static JFrame frame2 = new JFrame();
     public static JPanel panel = new JPanel();
     public static JPanel panel1 = new JPanel();
     public static JPanel panel2 = new JPanel();
+    public static JPanel panel3 = new JPanel();
     private static boolean flag = true;
     public static JLabel name_p = new JLabel();
     public static JLabel desc_p = new JLabel();
@@ -45,10 +48,10 @@ public abstract class View implements ActionListener{
 
     public static JTextField teamsize_t = new JTextField(20);
     public static JTextField teammem_t = new JTextField(20);
-    
+    public static JTextArea text = new JTextArea();
     JButton exit = new JButton("Exit");
     JButton add_project = new JButton("Add Project");
-    JButton view_project = new JButton("View project");
+    JButton view_project = new JButton("List Projects");
     JButton s = new JButton("Save");
     
 
@@ -81,17 +84,14 @@ public abstract class View implements ActionListener{
 		if (flag) {
 			frame.setSize(500,100);
 			frame.setTitle("Dashboard");
-//			panel.add(dashboard);
             panel.add(add_project);
             panel.add(view_project);
             panel.add(exit);
             add_project.addActionListener(this);
-            
+            view_project.addActionListener(this);
             frame.setLayout(new GridLayout(0, 1));
-            //frame.setBounds(0, 0, 0, 0);
             frame.add(panel);
             frame.add(panel1);
-            //frame.pack();
             frame.setVisible(true);
             flag = false;
         }
@@ -242,9 +242,8 @@ public abstract class View implements ActionListener{
 		}
 	}
 	public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getActionCommand() + " is pressed");
-//        if (e.getSource().getClass().toString().equals("class javax.swing.JButton"))
-//            read(e.getActionCommand());
+		if (e.getSource() == add_project) {
+        System.out.println("Provide input to Add Project");
         frame1.setSize(320,220);
         frame1.setTitle("Add Project");
         name_p.setText("Name");
@@ -269,8 +268,30 @@ public abstract class View implements ActionListener{
         panel2.add(teammem_t);
         panel2.add(s);
         frame1.add(panel2);
-       // frame1.pack();
         frame1.setVisible(true);
     }
+		if (e.getSource() == view_project){
+			System.out.println("Listing Projects in the home directory");
+			String userHome = System.getProperty("user.home");
+
+			File folder = new File(userHome+"/"+"biscuit");
+			File[] listOfFiles = folder.listFiles();
+			String fileName = "";
+
+			if (listOfFiles == null)
+				System.out.println("You don't have biscuit folder in your home directory to list projects");
+			else {
+				for (int i = 0; i < listOfFiles.length; i++) {
+					fileName += "\n"+listOfFiles[i].getName();
+				}
+				text.setText(fileName);
+				frame2.setSize(50,200);
+				panel3.add(text);
+				frame2.setLayout(new GridLayout(0, 1));
+	            frame2.add(panel3);
+	            frame2.setVisible(true);
+			}
+		}
+	}
 
 }
