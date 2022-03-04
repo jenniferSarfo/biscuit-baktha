@@ -28,6 +28,7 @@ public class Sprint {
 	public boolean isSprintReviewCompleted;
 
 	public List<UserStory> userStories = new ArrayList<>();
+	public List<Epic> epics = new ArrayList<>();
 	public List<Bug> bugs;
 	public List<Test> tests;
 //	public String retrospectiveMinutes;
@@ -45,6 +46,10 @@ public class Sprint {
 
 	public void addUserStory(UserStory userStory) {
 		this.userStories.add(userStory);
+	}
+	
+	public void addEpics(Epic epic) {
+		this.epics.add(epic);
 	}
 
 	public void save() {
