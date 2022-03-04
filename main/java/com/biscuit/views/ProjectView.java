@@ -378,4 +378,9 @@ public class ProjectView extends View {
 		return false;
 	}
 
+	public List<UserStory> GUIBacklog()
+	{
+		return (new ListUserStories(UserStories.getAll(project), "All User Stories")).GUIExecute();
+	}
+
 }
