@@ -20,10 +20,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import static javax.swing.JOptionPane.showMessageDialog;
-
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 import com.biscuit.ColorCodes;
 import com.biscuit.factories.UniversalCompleterFactory;
+import com.biscuit.models.Project;
+import com.biscuit.models.UserStory;
+import com.biscuit.models.services.Finder.Projects;
 
 import jline.console.ConsoleReader;
 import jline.console.completer.AggregateCompleter;
@@ -46,16 +50,23 @@ public abstract class View implements ActionListener{
     public static JTextField nameTextField = new JTextField(20);
     public static JTextField descriptionTextField = new JTextField(20);
     public static JTextField urlTextField = new JTextField(20);
-
     public static JTextField teamMembersTextField = new JTextField(20);
-    
     public static JTextArea text = new JTextArea();
+
+	public static JFrame backlogFrame = new JFrame();
+	public static JPanel panel4 = new JPanel();
+	public static JLabel backlogProjectLabel = new JLabel();
+	public static JTextField backlogProjectTextField = new JTextField(20);
+	JButton backlogView = new JButton("Backlog Stories");
+	JButton backlogExit = new JButton("Exit");
+
     
     
     JButton exit = new JButton("Exit");
 	JButton addProjectExit = new JButton("Exit");
     JButton add_project = new JButton("Add Project");
-    JButton view_project = new JButton("View project");
+    JButton view_project = new JButton("View Projects");
+	JButton view_backlog = new JButton("Project Backlog");
     JButton save = new JButton("Save");
     
 
@@ -91,6 +102,7 @@ public abstract class View implements ActionListener{
 //			panel.add(dashboard);
             panel.add(add_project);
             panel.add(view_project);
+			panel.add(view_backlog);
             panel.add(exit);
 
 			exit.addActionListener(new ActionListener() {
@@ -102,6 +114,7 @@ public abstract class View implements ActionListener{
 
             add_project.addActionListener(this);
             view_project.addActionListener(this);
+			view_backlog.addActionListener(this);
             dashboardFrame.setLayout(new GridLayout(0, 1));
             dashboardFrame.add(panel);
             dashboardFrame.add(panel1);
@@ -256,7 +269,6 @@ public abstract class View implements ActionListener{
 	}
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == view_project) {
-			System.out.println("Listing Projects in the home directory");
 			String userHome = System.getProperty("user.home");
 
 			File folder = new File(userHome+"/"+"biscuit");
@@ -270,7 +282,7 @@ public abstract class View implements ActionListener{
 					fileName += "\n"+listOfFiles[i].getName();
 				}
 				text.setText(fileName);
-				listProjectFrame.setSize(50,200);
+				listProjectFrame.setSize(200,500);
 				panel3.add(text);
 				listProjectFrame.setLayout(new GridLayout(0, 1));
 				listProjectFrame.add(panel3);
@@ -278,7 +290,7 @@ public abstract class View implements ActionListener{
 			}
 			
 		}
-		if (e.getSource()==add_project){
+		else if (e.getSource()==add_project){
         addProjectFrame.setSize(333,260);
         addProjectFrame.setTitle("Add Project");
         nameLabel.setText("Name");
@@ -333,12 +345,125 @@ public abstract class View implements ActionListener{
 					} catch (Exception e) {
 						System.out.println(e);
 					}
-					
 				}
-		
 			}
 		 });
     }
+	else if(e.getSource()==view_backlog)
+	{
+		backlogFrame.setSize(333,260);
+        backlogFrame.setTitle("Backlog View");
+        backlogProjectLabel.setText("Project Name");
+        panel4.add(backlogProjectLabel);
+		backlogProjectTextField.setBounds(100,20,165,25);
+        panel4.add(backlogProjectTextField);
+		backlogView.setBounds(160,20,165,25);
+        panel4.add(backlogView);
+		panel4.add(backlogExit);
+        backlogFrame.add(panel4);
+        backlogFrame.setVisible(true);
+		backlogFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
+		backlogExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				backlogFrame.dispose();
+			}
+		});
+
+		backlogView.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent ae){
+				String projectName = backlogProjectTextField.getText();
+								
+				if(projectName.length()==0 )
+				{
+					showMessageDialog(null, "Please provide project name");
+				}
+				else
+				{
+					try {
+						String userHome = System.getProperty("user.home");
+						File folder = new File(userHome+"/"+"biscuit");
+						File[] listOfFiles = folder.listFiles();
+
+						if (listOfFiles == null)
+						{
+						showMessageDialog(null, "You don't have biscuit folder in your home directory to list projects");
+						}
+						else {
+							int found=0;
+							for (int i = 0; i < listOfFiles.length; i++) {
+								if(listOfFiles[i].getName().toString().equals(projectName+".json"))
+								{
+									found=1;
+								}
+							}
+							if(found==0)
+							{
+								showMessageDialog(null, "The project "+ projectName +" is not present in your computer");
+							}
+							else
+							{
+								Project p = Projects.getProject(projectName);
+								ProjectView pv = new ProjectView(null, p);
+
+								List<UserStory> result = pv.GUIBacklog();
+
+								if(result==null)
+								{
+									showMessageDialog(null, "The project "+ projectName +" doesn't have any userstories");
+								}
+
+								else
+								{
+								JFrame userStories = new JFrame();
+
+								// Frame Title
+								userStories.setTitle(projectName + " UserStories");
+
+						
+								// Data to be displayed in the JTable
+								String[][] data = new String[result.size()][10];
+
+								// Column Names
+								String[] columnNames = { "Title", "Description", "State", "BusinessValue", "InitiatedDate", "PlannedDate", "DueDate", "StoryPoints", "Happiness", "comments"};
+								
+								for(int u=0; u<result.size(); u++)
+								{
+									String row[]= new String[10];
+									row[0] = result.get(u).title;
+									row[1] = result.get(u).description;
+									row[2] = result.get(u).state.toString();
+									row[3] = result.get(u).businessValue.toString();
+									row[4] = result.get(u).initiatedDate.toString();
+									row[5] = result.get(u).plannedDate.toString();
+									row[6] = result.get(u).dueDate.toString();
+									row[7] = Integer.toString(result.get(u).points);
+									row[8] = Integer.toString(result.get(u).Happiness);
+									row[9] = result.get(u).comments;
+									data[u] = row;
+								}	
+								// Initializing the JTable
+								JTable table = new JTable(data, columnNames);
+								table.setBounds(30, 40, 1200, 1200);
+						
+								// adding it to JScrollPane
+								JScrollPane sp = new JScrollPane(table);
+								userStories.add(sp);
+								// Frame Size
+								userStories.setSize(500, 200);
+								// Frame Visible = true
+								userStories.setVisible(true);
+							}
+						}
+						}
+					} catch (Exception e) {
+						System.out.println(e);
+					}
+				}
+			}
+		 });
+
 	}
-	
+}
 }

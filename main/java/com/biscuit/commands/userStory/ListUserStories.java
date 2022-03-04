@@ -162,6 +162,33 @@ public class ListUserStories implements Command {
 	}
 
 
+	public List<UserStory> GUIExecute() {
+
+		List<UserStory> userStories = new ArrayList<>();
+
+		if (backlog != null) {
+			userStories.addAll(backlog.userStories);
+		} else if (sprint != null) {
+			userStories.addAll(sprint.userStories);
+		} else if (this.userStories != null) {
+			userStories = this.userStories;
+		} else {
+			System.err.println("error: backlog, sprint, and user stories are null");
+			return null;
+		}
+
+		if (isFilter) {
+			doFilter(userStories);
+		}
+
+		if (isSort) {
+			doSort(userStories);
+		}
+
+		return userStories;
+	}
+
+
 	private void doSort(List<UserStory> userStories) {
 
 		Comparator<UserStory> byTitle = (us1, us2) -> us1.title.compareTo(us2.title);

@@ -365,4 +365,8 @@ public class BacklogView extends View {
 		return false;
 	}
 
-}
+	private void GUIExecute(String[] words) throws IOException {
+			(new ListUserStories(backlog, "Backlog (User Stories)")).GUIExecute();
+		} 
+	}
+
