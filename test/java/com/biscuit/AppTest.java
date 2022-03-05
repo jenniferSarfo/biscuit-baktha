@@ -1,12 +1,16 @@
 package com.biscuit;
 
 import com.biscuit.commands.theme.AddTheme;
+import com.biscuit.models.Project;
+import com.biscuit.models.enums.Status;
+
 import com.biscuit.views.DashboardView;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Collections;
 import java.util.List;
 
@@ -73,7 +77,10 @@ public class AppTest
 
     public static void testAddTheme()
     {
-        AddTheme at = new AddTheme();
+        Project p =Project.load("test");
+        Date d= null;
+        Status s=null;
+        AddTheme at= new AddTheme(p,"test","test",s,d,d,true);
         boolean result = at.execute();
 
         if(result==true)

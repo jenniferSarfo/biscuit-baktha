@@ -20,6 +20,7 @@ public class Project {
 	public Backlog backlog = new Backlog();
 	public List<Release> releases = new ArrayList<>();
 	public List<Sprint> sprints = new ArrayList<>();
+	public List<Theme> themes = new ArrayList<>();
 
 
 	public void save() {
@@ -85,6 +86,10 @@ public class Project {
 
 	public void addSprint(Sprint s) {
 		sprints.add(s);
+	}
+
+	public void addTheme(Theme t) {
+		themes.add(t);
 	}
 
 
