@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.biscuit.models.Backlog;
 import com.biscuit.models.Dashboard;
+import com.biscuit.models.Epic;
 import com.biscuit.models.Project;
 import com.biscuit.models.Release;
 import com.biscuit.models.Sprint;
@@ -78,6 +79,10 @@ public class Finder {
 		public static List<String> getAllNames(Sprint sprint) {
 			return sprint.userStories.stream().map(us -> us.title).collect(Collectors.toList());
 		}
+		
+		public static List<String> getAllNames(Epic epic) {
+			return epic.userStories.stream().map(us -> us.title).collect(Collectors.toList());
+		}
 
 
 		public static UserStory find(Project p, String title) {
@@ -92,6 +97,10 @@ public class Finder {
 
 		public static UserStory find(Sprint sprint, String title) {
 			return sprint.userStories.stream().filter(us -> us.title.equals(title)).findAny().orElse(null);
+		}
+		
+		public static UserStory find(Epic epic, String title) {
+			return epic.userStories.stream().filter(us -> us.title.equals(title)).findAny().orElse(null);
 		}
 
 
@@ -243,6 +252,20 @@ public class Finder {
 		public static Task find(UserStory us, String title) {
 			return us.tasks.stream().filter(t -> t.title.equals(title)).findAny().orElse(null);
 		}
+	}
+	
+	
+	public static class Epics {
+
+		public static List<String> getAllNames(Sprint sprint) {
+			return sprint.epics.stream().map(t -> t.name).collect(Collectors.toList());
+		}
+
+
+		public static Epic find(Sprint sprint, String title) {
+			return sprint.epics.stream().filter(t -> t.name.equals(title)).findAny().orElse(null);
+		}
+
 	}
 
 }
