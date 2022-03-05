@@ -1,5 +1,6 @@
 package com.biscuit;
 
+import com.biscuit.commands.theme.AddTheme;
 import com.biscuit.views.DashboardView;
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -68,6 +69,21 @@ public class AppTest
 
         assertTrue(true);
 
+    }
+
+    public static void testAddTheme()
+    {
+        AddTheme at = new AddTheme();
+        boolean result = at.execute();
+
+        if(result==true)
+        {
+            assertTrue("Add Theme Test succeeded", true);
+        }
+        else
+        {
+            assertTrue("Add Theme Test Failed", false);
+        }
     }
 
 
