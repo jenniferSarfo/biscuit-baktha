@@ -1,6 +1,8 @@
 # Biscuit-baktha
 This project is inspired from [biscuit tool](https://github.com/hamadmarri/Biscuit) this is a free command line interface tool for software project management. This project gives you the ability to follow Agile approach. Commands are designed to be intuitive and easy to remember. Your work will be saved as json files under your home directory (`$HOME$/biscuit/`). We had enhanced the [existing tool](https://github.com/hamadmarri/Biscuit/wiki/Usage-Example) by adding additional features, Implemeting GUI functionality, Integration with Taiga for importing information, and taking care of technical debt. 
 
+# Requirements
+Java 17
 
 # Instructions to Run the Project
 
