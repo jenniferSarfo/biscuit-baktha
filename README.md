@@ -1,80 +1,40 @@
-# Biscuit
-Is a free command line interface tool for software project management. This project gives you the ability to follow Agaile approach. Current version (0.1.0) is Beta, and it has only the implementation for Scrum so far. Commands are designed to be intuitive and easy to remember. Your work will be saved as json files under your home directory (`$HOME$/biscuit/`).
+# Biscuit-baktha
+This project is inspired from [biscuit tool](https://github.com/hamadmarri/Biscuit) this is a free command line interface tool for software project management. This project gives you the ability to follow Agile approach. Commands are designed to be intuitive and easy to remember. Your work will be saved as json files under your home directory (`$HOME$/biscuit/`). We had enhanced the [existing tool](https://github.com/hamadmarri/Biscuit/wiki/Usage-Example) by adding additional features, Implemeting GUI functionality, Integration with Taiga for importing information, and taking care of technical debt. 
 
 
-# Features
-* Autocompelete ability
-* Coloured console output
-* Dashboard view
-* Adding, editing, and removing projects
-* Adding and editing releases
-* Adding and editing sprints
-* Adding and editing user stories
-* Adding and editing tasks
-* Backlog view
-* List releases, sprints, user stories, and tasks with filtering and sorting features
-* Changing status of releases, sprints, user stories, and tasks (Status: created, open, planned, unplanned, in_progress, in_testing, done, overdue, removed)
-* Planner view
-* Print plan in short form as a tree, or in details in a table
-* Moving user stories to sprints
-* Moving sprints to releases
-* Unplan sprints, user stories, or unplan all
+# Instructions to Run the Project
+
+1. In the [Final Release version](https://github.com/jenniferSarfo/biscuit-baktha/releases/tag/4.0), download the biscuit-baktha.jar which is the artifact of the project with it's dependencies.
+2. In in the CLI navigate to folder (where the jar file is saved) and run the command "java -jar biscuit-baktha.jar"
 
 
+# Contribution to the Project
 
-# Requirements
-Java 1.8
-
-
-# Installation
-## Linux
-```
-cd ./biscuit/binaries
-chmod +x ./setup.sh
-./setup.sh
-```
-Following files will be created
-```
-/usr/local/bin/biscuit.jar
-/usr/local/bin/biscuit
-```
-
-## Windows
-no installation file yet  
-run manually:  
-```
-cd ./biscuit/binaries
-java -jar biscuit.jar
-```
+1. Clone the Project.
+2. Download the biscuit-baktha.jar which is the artifact of the project with it's dependencies in [Final Release](https://github.com/jenniferSarfo/biscuit-baktha/releases/tag/4.0).
+3. Add the downloaded biscuit-baktha.jar as an external JAR file to the class path in java build path.
+4. Contribute to the project.
+5. For testing, export the project as a java Runnable JAR file.
+6. In in the CLI navigate to folder (where the jar file is saved) and run the command "java -jar filename.jar"
 
 
-
-# Documentation
+# Documentation from [biscuit](https://github.com/hamadmarri/Biscuit)
 * [Wiki](https://github.com/hamadmarri/Biscuit/wiki)
 * [Usage Example](https://github.com/hamadmarri/Biscuit/wiki/Usage-Example)
 * [Commands](https://github.com/hamadmarri/Biscuit/wiki/Commands)
-* [Future work](https://github.com/hamadmarri/Biscuit/wiki/Future-work)
 
 
 # Credits
+
+This project is implemented in Agile methodology, additional functionality is suggested and implemented under the guidance of [Dr. Gary](https://isearch.asu.edu/profile/55544) from [Arizona State University](https://asuonline.asu.edu/?utm_source=google&utm_medium=cpc&utm_term=asu%20website&utm_content=ASU-Gen-EM&utm_campaign=ASU-GG-SN-B-A-ALL-ADL-SUITE-PR-08192021-LOC-MMT-NSP-NSP-ASUOWEBSITE&utm_campaignid=12551712710&utm_adgroupid=119931903752&utm_adid=506958469109&sfcid=7013X000002BbjgQAC&utm_ecd22=12&gclid=CjwKCAiAjoeRBhAJEiwAYY3nDHWTrB2sf2kpFOJyR8Ke3tXjAsOTb-3M0YtkvZUKnKbTcTADFHgkHBoCdUcQAvD_BwE&gclsrc=aw.ds)
+
+This project is built on top of existing biscuit tool implemented by [hamadmarri](https://github.com/hamadmarri)
+
 The following libraries are used in this project  
 * [jline 2.12](https://github.com/jline/jline2)
 * [asciitable 0.2.5](https://github.com/vdmeer/asciitable)
 * [gson 2.8.0](https://github.com/google/gson)
 * [ColorCodes.java](https://gist.github.com/nathan-fiscaletti/9dc252d30b51df7d710a)
+* [org.json](https://github.com/stleary/JSON-java) 
 
-
-# Donate
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RZC5CWSCTMB8E)
-
-Testing commit on slack.
-Testing commit for YT video.
-
-**Instructions to run the project:**
-1. Import the project.
-2. Download the biscuit-baktha.jar which is the artifact of the project with it's dependencies.(In the Final Release version of the project
-https://github.com/jenniferSarfo/biscuit-baktha/releases/tag/4.0)
-3. Add the downloaded biscuit-baktha.jar as an external JAR file to the class path in java build path.
-4. Export the project as a java Runnable JAR file.
-5. In in the CLI navigate to folder (where the jar file is saved) and run the command "java -jar <<filename>>.jar"
 
