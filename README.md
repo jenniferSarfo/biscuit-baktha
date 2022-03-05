@@ -76,5 +76,5 @@ Testing commit for YT video.
 https://github.com/jenniferSarfo/biscuit-baktha/releases/tag/4.0)
 3. Add the downloaded biscuit-baktha.jar as an external JAR file to the class path in java build path.
 4. Export the project as a java Runnable JAR file.
-5. In in the CLI navigate to folder (where the jar file is saved) and run the command "java -jar <filename>.jar"
+5. In in the CLI navigate to folder (where the jar file is saved) and run the command "java -jar <<filename>>.jar"
 
